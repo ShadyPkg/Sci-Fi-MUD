@@ -24,7 +24,9 @@ Pros: They have enhanced speed can use energy guns. Cons: Since their half human
 		-Cannon Blast
 		-QuickBoot
 		-Motion Sensor
+		-Recharge
 		-Discharge
+		-Shutdown
 		-Analyze
 		-Reboot
 		-Reconfigure
@@ -114,4 +116,92 @@ Pros: Vast knowledge and skillset when working with computers. Has ability to br
 	Weapons:
 		-None
 
+Time Traveler: Gifted with the ability to manipulate space and time.
 
+Pros: Powerful abilities that can distort reality.
+Cons: Some abilities are unpredicable and difficult to master. 
+
+	Skills:
+		-Create dimension blade
+		-Teleport
+		-Hide
+		-Cast invisible
+		-Cast visible
+		-Mass Teleport
+		-Distort
+		-Warp
+		-Levitate
+		-Summon
+		-Telepathy
+		-Awareness
+		-Blackout
+		-Cast wall
+		-Cast mirror
+		-Illusions
+		-Cast fog
+		-Create Portal
+		-Pass door
+		-Haste
+		-Slow
+		-Phase
+		-Hallucinations
+		-Tarot
+		-Farsight
+		-Focus
+		-Probablity Manipulation
+		-Wormholes
+		-Time Stop
+		-Time Warp
+		-Time Travel
+	
+	Weapons:
+		-Dimension Blade
+		
+BlackHand Rogue: Specialized assassin capable of dark arts and shadow walking. Few have ever stood face to face against one and lived. Not much is known about them. 
+Pros: Vast amount of stealth and speed abilities. Able to steal abilities from others. Immune to various poisons.
+Cons: Classified. 
+
+	Skills:
+		-Stab
+		-Hide
+		-Peek
+		-Listen
+		-Search
+		-Lipread
+		-Waiting
+		-Sharpen blade
+		-Haggle
+		-Steal item
+		-Steal weapon
+		-Sneak
+		-Backstab
+		-Awareness
+		-Cast invisible
+		-Night vision
+		-Immunity
+		-Poisons
+		-Lace
+		-Envenom
+		-Deathsight
+		-Hypersight
+		-Bluff
+		-Haste
+		-Dash
+		-Blind
+		-Eavesdrop
+		-Cast illusion
+		-Cloak
+		-Hypnosis
+		-Evade
+		-Telesense
+		-Farsight
+		-Alertness
+		-Thirdeye
+		-Set trap
+		-Disarm trap
+		-Steal Ability
+		-Shadow Walk
+		-Dark Arts
+	Weapons:
+		-Blades
+		-Daggers
