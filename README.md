@@ -173,6 +173,7 @@ Cons: Classified.
 		-Haggle
 		-Steal item
 		-Steal weapon
+		-Disarm
 		-Sneak
 		-Backstab
 		-Awareness
