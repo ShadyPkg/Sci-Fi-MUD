@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -25,11 +27,24 @@ public class SciFiMUD {
         // Need to add splash screen login
         System.out.println("Welcome to Digital Wasteland.");
         //reads in name and pass into a text file
-        System.out.println("What is your name?");
         String name;
-        Scanner stdin = new Scanner(System.in);
-        name = stdin.nextLine();
-        
+        Scanner stdin = new Scanner(System.in);     
+        while(true){
+            System.out.println("What is your name?");
+            name = stdin.nextLine();
+            //makes sure name has no spaces, numbers, or special charcters and
+            //length of name is between 3 to 12 charaters. Still need to add filtering for brackets and quotation marks
+            String namePattern = "([^\\s!@#$%^&*()1234567890-_+=:;',.<>?/|'{}\\/']{3,12})";
+            Pattern pattern = Pattern.compile(namePattern);
+            Matcher matcher = pattern.matcher(name);
+            if(matcher.matches()){
+                System.out.println("That is a good name.");
+                break;
+            }
+            else{
+                System.out.println("No spaces, numbers, special characters and name must be between length of 3 to 12 characters.");
+            }
+        }
         //checks to see if the name exists
         if(checkName(name)){
             System.out.println("Welcome " + name);
@@ -39,6 +54,7 @@ public class SciFiMUD {
             //makes user enter password twice to confirm password is correct
             System.out.println("Hello " + name + ". Please enter a password.");
             String password;
+            
             while(true){
 
                 password = stdin.nextLine();
