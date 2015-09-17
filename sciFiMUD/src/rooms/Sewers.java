@@ -9,7 +9,7 @@ package rooms;
  *
  * @author jonc
  */
-public class Factory {
+public class Sewers {
     //this will be handy in the future when we need to identify a room
     int roomID;
     //what will be displayed in each room when a charater walks in
