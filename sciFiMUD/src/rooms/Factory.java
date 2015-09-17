@@ -14,7 +14,7 @@ public class Factory {
     int roomID;
     //what will be displayed in each room when a charater walks in
     String roomDescription;
-    //be default all directions are possible
+    //by default all directions are possible
     //when room is actually created we disable directions and doors accordingly
     //secret is false by default as most rooms don't have secret passageways
     boolean north = true;

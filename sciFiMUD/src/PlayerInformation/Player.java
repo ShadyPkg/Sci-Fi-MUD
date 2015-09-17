@@ -3,13 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package PlayerInformation;
 
 /**
  *
  * @author jonc
  */
-public class BlackHandRogue {
+
+//this class information will be saved into a text file so player can access when 
+//the player logins again
+public class Player {
+    
     private int health;
     private int energy;
     private int attack;
@@ -17,11 +21,13 @@ public class BlackHandRogue {
     private int defense;
     private int intelligence;
     private int level;
+    private int experience;
     
-    //constructor
-    BlackHandRogue(){
-        
-    }
+    //stores player information
+    private String name;
+    private String password;
+    //name of the class such as Cyborg, Time Traveller, etc
+    private String className;
 
     /**
      * @return the health
@@ -120,4 +126,61 @@ public class BlackHandRogue {
     public void setLevel(int level) {
         this.level = level;
     }
+
+    /**
+     * @return the experience
+     */
+    public int getExperience() {
+        return experience;
+    }
+
+    /**
+     * @param experience the experience to set
+     */
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the className
+     */
+    public String getClassName() {
+        return className;
+    }
+
+    /**
+     * @param className the className to set
+     */
+    public void setClassName(String className) {
+        this.className = className;
+    }
+    
 }

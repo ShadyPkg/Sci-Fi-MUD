@@ -10,6 +10,7 @@ package classes;
  * @author jonc
  */
 public class TimeTraveller {
+    
     private int health;
     private int energy;
     private int attack;
