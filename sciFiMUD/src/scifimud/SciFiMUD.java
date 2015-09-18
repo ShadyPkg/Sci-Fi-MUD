@@ -87,7 +87,7 @@ public class SciFiMUD {
                 }
             } 
             System.out.println("Please pick your class.");
-            System.out.println("The classes are Cyborg, Nanomedic, Cyber Security Architect, , Time Traveller, and BlackHandRogue");
+            System.out.println("The classes are Cyborg, Nanomedic, Cyber Security Architect, , Time Traveler, and BlackHandRogue");
             System.out.println("Type the abbreviations for the class which are cyborg, nano, cyber, time, black.");
             String classChosen = "dummy";
             //makes sure the player picks a valid class using the abbreviations
@@ -97,18 +97,23 @@ public class SciFiMUD {
                 classChosen = stdin.nextLine();
                 switch(classChosen){
                     case "cyborg":
+                        classChosen = "Cyborg";
                         correct = 1;
                         break;
                     case "nano":
+                        classChosen = "NanoMedic";
                         correct = 1;
                         break;
                     case "cyber":
+                        classChosen = "Cyber Security Architect";
                         correct = 1;
                         break;
                     case "time":
+                        classChosen = "Time Traveler";
                         correct = 1;
                         break;
                     case "black":
+                        classChosen = "Blackhand Rogue";
                         correct = 1;
                         break;
                     default:
