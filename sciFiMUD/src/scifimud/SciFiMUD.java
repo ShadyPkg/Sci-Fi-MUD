@@ -4,10 +4,17 @@
  */
 package scifimud;
 
+import PlayerInformation.EncryptString;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.GeneralSecurityException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +30,7 @@ public class SciFiMUD {
      * @throws java.net.URISyntaxException
      * @throws java.io.FileNotFoundException
      */
-    public static void main(String[] args) throws URISyntaxException, FileNotFoundException  {
+    public static void main(String[] args) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException, IOException  {
         // Need to add splash screen login
         System.out.println("Welcome to Digital Wasteland.");
         //reads in name and pass into a text file
@@ -33,12 +40,10 @@ public class SciFiMUD {
             System.out.println("What is your name?");
             name = stdin.nextLine();
             //makes sure name has no spaces, numbers, or special charcters and
-            //length of name is between 3 to 12 charaters. Still need to add filtering for brackets and quotation marks
-            String namePattern = "([^\\s!@#$%^&*()1234567890-_+=:;',.<>?/|'{}\\/']{3,12})";
-            Pattern pattern = Pattern.compile(namePattern);
+            //length of name is between 3 to 12 charaters. 
+            Pattern pattern = Pattern.compile("[A-Za-z]{3,12}");
             Matcher matcher = pattern.matcher(name);
-            if(matcher.matches()){
-                System.out.println("That is a good name.");
+            if(matcher.matches()){ 
                 break;
             }
             else{
@@ -47,12 +52,24 @@ public class SciFiMUD {
         }
         //checks to see if the name exists
         if(checkName(name)){
-            System.out.println("Welcome " + name);
-            connectPlayer();
+           
+            
+            String password;
+            System.out.println("What is your password?");
+            password = stdin.nextLine();
+            if(checkPassword(name, password) == 1){
+                System.out.println("Welcome " + name);
+            }
+            else{
+                //if failed then user is disconnected to prevent bruteforce hack attemps
+                System.out.println("Name or password is incorrect.");
+                System.exit(0);
+            }
         }
         else{
+            System.out.println("That is a good name.");
             //makes user enter password twice to confirm password is correct
-            System.out.println("Hello " + name + ". Please enter a password.");
+            System.out.println("Please enter a password.");
             String password;
             
             while(true){
@@ -71,7 +88,39 @@ public class SciFiMUD {
             } 
             System.out.println("Please pick your class.");
             System.out.println("The classes are Cyborg, Nanomedic, Cyber Security Architect, , Time Traveller, and BlackHandRogue");
-            System.out.println("Type the abbreviations for the class");
+            System.out.println("Type the abbreviations for the class which are cyborg, nano, cyber, time, black.");
+            String classChosen = "dummy";
+            //makes sure the player picks a valid class using the abbreviations
+            //note only Java version 7 or higher has strings for switch cases. Update Java version if its not working
+            int correct = 0;
+            while(correct==0){
+                classChosen = stdin.nextLine();
+                switch(classChosen){
+                    case "cyborg":
+                        correct = 1;
+                        break;
+                    case "nano":
+                        correct = 1;
+                        break;
+                    case "cyber":
+                        correct = 1;
+                        break;
+                    case "time":
+                        correct = 1;
+                        break;
+                    case "black":
+                        correct = 1;
+                        break;
+                    default:
+                        System.out.println("Please type in the abbreviation correctly for the class you want");
+                        break;
+                }
+            }
+            System.out.println("Saving data please wait...");
+            //saving player data to a file
+            savePlayer(name, password, classChosen);
+            System.out.println("Successfully saved!");
+            
         }
         
         
@@ -97,18 +146,41 @@ public class SciFiMUD {
     }
     
     //saves name of user, pass, class, and stats into a file.
-    static void saveName(String name, String password, String className) throws URISyntaxException, FileNotFoundException{
-        //relative file path
-        URL url = SciFiMUD.class.getResource(name);
-         
-        File file = new File(url.toURI());
+    static void savePlayer(String name, String password, String className) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException{
         
-        Scanner fin;
-    
-        fin = new Scanner((file));
+        try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
+            //name
+            writer.println(name);
+      
+            //encrypting password
+            password = EncryptString.encrypt(password);
+            writer.println(password);
+            //class 
+            writer.println(className);
+            //level of player
+            writer.println("1");
+            //End of file flag
+            writer.println("END");
+        }
     }
     
-    //once user is authenticated the player will be connected
+    //checking if players password matches
+    static int checkPassword(String name, String password) throws FileNotFoundException, IOException, GeneralSecurityException{
+        try(BufferedReader br = new BufferedReader(new FileReader("src/PlayerInformation/" + name + ".txt"))){
+            
+            String nameInFile = br.readLine();
+            String passwordInFile = br.readLine();
+            passwordInFile = EncryptString.decrypt(passwordInFile);
+            if( nameInFile.equals(name) && passwordInFile.equals(password)){
+                return 1;
+            }
+                  
+        }
+        
+        return 0;
+        
+    }
+    
     static void connectPlayer(){
         
     }
