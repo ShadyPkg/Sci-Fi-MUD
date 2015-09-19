@@ -10,6 +10,11 @@ package rooms;
  * @author jonc
  */
 public class CentralHub {
+    
+    public CentralHub(){
+        
+    }
+    
     //this will be handy in the future when we need to identify a room
     int roomID;
     //what will be displayed in each room when a charater walks in
@@ -28,4 +33,6 @@ public class CentralHub {
     boolean eastDoor = true;
     boolean westDoor = true;
     boolean secret = false;
+    
+    
 }
