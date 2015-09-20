@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rooms;
+package Skills;
 
 /**
  *
- * @author jonc
+ * @author root
  */
-public class ThePit extends Room{
-    public ThePit(){
-        
-    }
+public interface Mechanics {
+    
 }

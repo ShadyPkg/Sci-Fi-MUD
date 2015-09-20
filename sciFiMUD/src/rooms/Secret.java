@@ -9,23 +9,8 @@ package rooms;
  *
  * @author jonc
  */
-public class Secret {
-    //this will be handy in the future when we need to identify a room
-    int roomID;
-    //what will be displayed in each room when a charater walks in
-    String roomDescription;
-    //by default all directions are possible
-    //when room is actually created we disable directions and doors accordingly
-    //secret is false by default as most rooms don't have secret passageways
-    boolean north = true;
-    boolean south = true;
-    boolean east = true;
-    boolean west = true;
-    boolean up = true;
-    boolean down = true;
-    boolean northDoor = true;
-    boolean southDoor = true;
-    boolean eastDoor = true;
-    boolean westDoor = true;
-    boolean secret = false;
+public class Secret extends Room{
+    public Secret(){
+        
+    }
 }

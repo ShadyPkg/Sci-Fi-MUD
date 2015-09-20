@@ -5,119 +5,36 @@
  */
 package classes;
 
+import Skills.Basic;
+
+
 /**
  *
  * @author jonc
  */
-public class BlackHandRogue {
-    private int health;
-    private int energy;
-    private int attack;
-    private int speed;   
-    private int defense;
-    private int intelligence;
-    private int level;
-    
-    //constructor
-    BlackHandRogue(){
+public class BlackHandRogue extends Player implements Basic{
+   
+    public BlackHandRogue(){
         
     }
 
-    /**
-     * @return the health
-     */
-    public int getHealth() {
-        return health;
+    @Override
+    public void look() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * @param health the health to set
-     */
-    public void setHealth(int health) {
-        this.health = health;
+    @Override
+    public void probe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * @return the energy
-     */
-    public int getEnergy() {
-        return energy;
+    @Override
+    public void tell() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * @param energy the energy to set
-     */
-    public void setEnergy(int energy) {
-        this.energy = energy;
-    }
-
-    /**
-     * @return the attack
-     */
-    public int getAttack() {
-        return attack;
-    }
-
-    /**
-     * @param attack the attack to set
-     */
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    /**
-     * @return the speed
-     */
-    public int getSpeed() {
-        return speed;
-    }
-
-    /**
-     * @param speed the speed to set
-     */
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    /**
-     * @return the defense
-     */
-    public int getDefense() {
-        return defense;
-    }
-
-    /**
-     * @param defense the defense to set
-     */
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    /**
-     * @return the intelligence
-     */
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    /**
-     * @param intelligence the intelligence to set
-     */
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    /**
-     * @return the level
-     */
-    public int getLevel() {
-        return level;
-    }
-
-    /**
-     * @param level the level to set
-     */
-    public void setLevel(int level) {
-        this.level = level;
+    @Override
+    public void observe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

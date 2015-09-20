@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rooms;
+package Skills;
 
 /**
  *
- * @author jonc
+ * @author root
  */
-public class CentralHub extends Room{
+//all basic actions a player can have such as looking, probing, talking, etc
+public interface Basic {
     
-    public CentralHub(){
-        
-    }
-    
-    
+    void look();
+    void probe();
+    void tell();
+    void observe();
     
 }
