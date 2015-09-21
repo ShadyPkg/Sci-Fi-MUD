@@ -58,6 +58,7 @@ public class SciFiMUD {
             password = stdin.nextLine();
             if(checkPassword(name, password) == 1){
                 System.out.println("Welcome " + name);
+                connectPlayer(name);
             }
             else{
                 //if failed then user is disconnected to prevent bruteforce hack attemps
@@ -163,8 +164,31 @@ public class SciFiMUD {
             writer.println(className);
             //level of player
             writer.println("1");
-            //End of file flag
-            writer.println("END");
+            //experience of player
+            writer.println("0");
+           
+            //map location of player
+            writer.println("ThePit");
+            //map coordinates where player is located
+            writer.println("0 0 0");
+            //amount of gold player is carrying
+            writer.println("0");
+            //players inventory, all items are separated by a comma and will
+            //use a strtok to break up the items
+            writer.println("Empty");
+            
+            //players weapon equipment
+            writer.println("Nothing");
+            //players head equipment
+            writer.println("Nothing");
+            //players torso equipment
+            writer.println("Nothing");
+            //players pants equipments
+            writer.println("Nothing");
+            //players shoe equipment
+            writer.println("Nothing");
+            
+            writer.close();
         }
     }
     
@@ -175,7 +199,9 @@ public class SciFiMUD {
             String nameInFile = br.readLine();
             String passwordInFile = br.readLine();
             passwordInFile = EncryptString.decrypt(passwordInFile);
+            
             if( nameInFile.equals(name) && passwordInFile.equals(password)){
+                br.close();
                 return 1;
             }
                   
@@ -185,7 +211,25 @@ public class SciFiMUD {
         
     }
     
-    static void connectPlayer(){
-        
+    static void connectPlayer(String name) throws FileNotFoundException, IOException{
+        try(BufferedReader br = new BufferedReader(new FileReader("src/PlayerInformation/" + name + ".txt"))){
+            
+            String nameInFile = br.readLine();
+            String passwordInFile = br.readLine();
+            String className = br.readLine();
+            String level = br.readLine();
+            String experience = br.readLine();
+            String location = br.readLine();
+            String mapCoordinates = br.readLine();
+            String gold = br.readLine();
+            String inventory = br.readLine();
+            String weapon = br.readLine();
+            String head = br.readLine();
+            String torso = br.readLine();
+            String pants = br.readLine();
+            String shoes = br.readLine();
+            
+            br.close();
+        }
     }
 }

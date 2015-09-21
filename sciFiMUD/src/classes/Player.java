@@ -28,7 +28,13 @@ public class Player {
     private String password;
     //name of the class such as Cyborg, Time Traveller, etc
     private String className;
-
+    
+    //players equipment
+    private String weapon;
+    private String head;
+    private String torso;
+    private String pants;
+    private String shoes;
     /**
      * @return the health
      */
@@ -181,6 +187,76 @@ public class Player {
      */
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    /**
+     * @return the weapon
+     */
+    public String getWeapon() {
+        return weapon;
+    }
+
+    /**
+     * @param weapon the weapon to set
+     */
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
+    /**
+     * @return the head
+     */
+    public String getHead() {
+        return head;
+    }
+
+    /**
+     * @param head the head to set
+     */
+    public void setHead(String head) {
+        this.head = head;
+    }
+
+    /**
+     * @return the torso
+     */
+    public String getTorso() {
+        return torso;
+    }
+
+    /**
+     * @param torso the torso to set
+     */
+    public void setTorso(String torso) {
+        this.torso = torso;
+    }
+
+    /**
+     * @return the pants
+     */
+    public String getPants() {
+        return pants;
+    }
+
+    /**
+     * @param pants the pants to set
+     */
+    public void setPants(String pants) {
+        this.pants = pants;
+    }
+
+    /**
+     * @return the shoes
+     */
+    public String getShoes() {
+        return shoes;
+    }
+
+    /**
+     * @param shoes the shoes to set
+     */
+    public void setShoes(String shoes) {
+        this.shoes = shoes;
     }
     
 }
