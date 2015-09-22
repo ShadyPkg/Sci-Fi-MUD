@@ -24,6 +24,7 @@ public class Player implements Basic{
     private int intelligence;
     private int level;
     private int experience;
+    private int bitcoins;
     
     //stores player information
     private String name;
@@ -361,8 +362,9 @@ public class Player implements Basic{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
     @Override
-    public void gold() {
+    public void bitcoins() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -3,8 +3,8 @@ wpG0pc/WMk4=
 Blackhand Rogue
 1
 0
-ThePit
-0 0 0
+The Pit
+50 50 3
 0
 Normal
 Empty

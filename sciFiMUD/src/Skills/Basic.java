@@ -39,8 +39,8 @@ public interface Basic {
     //checks what is in your own inventory
     void inventory();
     
-    //shows how much gold player is carrying
-    void gold();
+    //shows how many bitcoins the player is carrying
+    void bitcoins();
     
     //allows a player to go east
     void east();
