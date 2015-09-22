@@ -9,6 +9,6 @@ package Skills;
  *
  * @author root
  */
-public interface Mechanics {
+public interface BioMechanics {
     
 }

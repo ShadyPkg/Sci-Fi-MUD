@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
-
-import Skills.BioMechanics;
+package Skills;
 
 /**
  *
- * @author jonc
+ * @author root
  */
-public class Cyborg extends Player implements BioMechanics{
+public interface TimeManipulation {
     
-    public Cyborg(){
-        
-    }
 }

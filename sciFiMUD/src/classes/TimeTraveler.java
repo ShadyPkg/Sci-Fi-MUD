@@ -5,14 +5,16 @@
  */
 package classes;
 
+import Skills.TimeManipulation;
+
 /**
  *
  * @author jonc
  */
-public class TimeTraveller extends Player{
+public class TimeTraveler extends Player implements TimeManipulation{
     
    
-    public TimeTraveller(){
+    public TimeTraveler(){
         
     }
 }

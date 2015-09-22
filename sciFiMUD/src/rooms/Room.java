@@ -15,6 +15,11 @@ public class Room {
     private int roomID;
     //what will be displayed in each room when a charater walks in
     private String roomDescription;
+    //map area such as ThePit, Factory, CentralHub, etc
+    private String area;
+    //3 coordinates to store x, y, z location in an area
+    private int[] roomCoordinates = new int[3];
+    
     //by default all directions are disabled. 
     //when room is actually created we enable directions and doors accordingly
     private boolean north = false;
@@ -246,5 +251,33 @@ public class Room {
      */
     public void setSecret(boolean secret) {
         this.secret = secret;
+    }
+
+    /**
+     * @return the area
+     */
+    public String getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    /**
+     * @return the roomCoordinates
+     */
+    public int[] getRoomCoordinates() {
+        return roomCoordinates;
+    }
+
+    /**
+     * @param roomCoordinates the roomCoordinates to set
+     */
+    public void setRoomCoordinates(int[] roomCoordinates) {
+        this.roomCoordinates = roomCoordinates;
     }
 }

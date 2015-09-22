@@ -5,11 +5,13 @@
  */
 package classes;
 
+import Skills.ComputerScience;
+
 /**
  *
  * @author jonc
  */
-public class CyberSecurityArchitect extends Player{
+public class CyberSecurityArchitect extends Player implements ComputerScience{
    
     public CyberSecurityArchitect(){
         

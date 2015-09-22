@@ -5,11 +5,13 @@
  */
 package classes;
 
+import Skills.NanoEngineering;
+
 /**
  *
  * @author jonc
  */
-public class NanoMedic extends Player{
+public class NanoMedic extends Player implements NanoEngineering{
     
     public NanoMedic(){
         

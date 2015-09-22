@@ -5,6 +5,12 @@
 package scifimud;
 
 import PlayerInformation.EncryptString;
+import classes.BlackHandRogue;
+import classes.CyberSecurityArchitect;
+import classes.Cyborg;
+import classes.NanoMedic;
+import classes.Player;
+import classes.TimeTraveler;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -150,7 +156,8 @@ public class SciFiMUD {
           
     }
     
-    //saves name of user, pass, class, and stats into a file.
+    //saves name of user, pass, class, and stats into a file. This is function is only for saving
+    //a player who is new for the first time
     static void savePlayer(String name, String password, String className) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException{
         
         try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
@@ -170,9 +177,12 @@ public class SciFiMUD {
             //map location of player
             writer.println("ThePit");
             //map coordinates where player is located
-            writer.println("0 0 0");
+            writer.printf("%d %d %d\n", 0, 0, 0);
             //amount of gold player is carrying
-            writer.println("0");
+            writer.printf("%d\n", 0);
+            //players health status, ex: healthy, blind, sick, etc. 
+            //multiple affliction status will be separated by commas
+            writer.println("Normal");
             //players inventory, all items are separated by a comma and will
             //use a strtok to break up the items
             writer.println("Empty");
@@ -210,19 +220,25 @@ public class SciFiMUD {
         return 0;
         
     }
-    
+    //connects player and gets data to setup a player on the map
     static void connectPlayer(String name) throws FileNotFoundException, IOException{
+        String nameInFile;
+        String className;
+        
         try(BufferedReader br = new BufferedReader(new FileReader("src/PlayerInformation/" + name + ".txt"))){
             
-            String nameInFile = br.readLine();
+            nameInFile = br.readLine();
             String passwordInFile = br.readLine();
-            String className = br.readLine();
+            className = br.readLine();
             String level = br.readLine();
             String experience = br.readLine();
             String location = br.readLine();
             String mapCoordinates = br.readLine();
+            
             String gold = br.readLine();
+            String status = br.readLine();
             String inventory = br.readLine();
+            
             String weapon = br.readLine();
             String head = br.readLine();
             String torso = br.readLine();
@@ -230,6 +246,66 @@ public class SciFiMUD {
             String shoes = br.readLine();
             
             br.close();
+              
+            
         }
+        
+        //creates new player associated with his/her class
+        switch(className){
+            case "Cyborg":
+                Cyborg cyborg = new Cyborg();
+                cyborg.setHealth(100);
+                cyborg.setEnergy(50);
+                cyborg.setAttack(23);
+                cyborg.setSpeed(21);
+                cyborg.setDefense(20);
+                cyborg.setIntelligence(22);
+                break;
+            
+            case "NanoMedic":
+                NanoMedic nanomedic = new NanoMedic();
+                nanomedic.setHealth(90);
+                nanomedic.setEnergy(70);
+                nanomedic.setAttack(19);
+                nanomedic.setSpeed(20);
+                nanomedic.setDefense(19);
+                nanomedic.setIntelligence(23);
+                break;
+            
+            case "Cyber Security Architect":
+                CyberSecurityArchitect cybersecurityarchitect = new CyberSecurityArchitect();
+                cybersecurityarchitect.setHealth(60);
+                cybersecurityarchitect.setEnergy(90);
+                cybersecurityarchitect.setAttack(18);
+                cybersecurityarchitect.setSpeed(21);
+                cybersecurityarchitect.setDefense(19);
+                cybersecurityarchitect.setIntelligence(25);
+                break;
+            
+            case "Time Traveler":
+                TimeTraveler timetraveler = new TimeTraveler();
+                timetraveler.setHealth(70);
+                timetraveler.setEnergy(100);
+                timetraveler.setAttack(20);
+                timetraveler.setSpeed(25);
+                timetraveler.setDefense(19);
+               timetraveler.setIntelligence(24);    
+                break;
+            
+            case "Blackhand Rogue":
+                BlackHandRogue blackhandrogue = new BlackHandRogue();
+                blackhandrogue.setHealth(80);
+                blackhandrogue.setEnergy(80);
+                blackhandrogue.setAttack(22);
+                blackhandrogue.setSpeed(26);
+                blackhandrogue.setDefense(19);
+                blackhandrogue.setIntelligence(21);
+                break;
+            //in case the file did not read the class properly it will terminate application
+            default:
+                System.out.println("Error invalid class or did not read data properly. Contact admin.");
+                System.exit(0);
+                
+        };
     }
 }

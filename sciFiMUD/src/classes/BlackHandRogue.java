@@ -6,35 +6,18 @@
 package classes;
 
 import Skills.Basic;
+import Skills.ShadowArt;
 
 
 /**
  *
  * @author jonc
  */
-public class BlackHandRogue extends Player implements Basic{
+public class BlackHandRogue extends Player implements ShadowArt{
    
     public BlackHandRogue(){
         
     }
 
-    @Override
-    public void look() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void probe() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void tell() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void observe() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
