@@ -42,7 +42,7 @@ public class ConnectPlayer {
         
     }
     //connects player and gets data to setup a player on the map
-    public void connect(String name) throws FileNotFoundException, IOException{
+    public void connect(String name) throws FileNotFoundException, IOException, URISyntaxException{
         String nameInFile;
         String className;
         String location;
@@ -61,8 +61,7 @@ public class ConnectPlayer {
         String pants;
         String shoes;
         
-        
-        String dummy;
+       
         
         try(Scanner sc = new Scanner(new File("src/PlayerInformation/" + name + ".txt"))){
             
@@ -155,6 +154,8 @@ public class ConnectPlayer {
                 System.exit(0);
                 
         }
+        //reading in words
+        readDict();
         //intitalizing map
         ThePit[][][] mainMap = null;
         CentralHub[][][] hubMap = null;
@@ -416,7 +417,7 @@ public class ConnectPlayer {
             mid=(high+low)/2;
             
             //if a partial match is found return the word
-            if(word.contains(listOfWords.get(mid))){
+            if(listOfWords.get(mid).contains(word)){
                 return listOfWords.get(mid);
             }
             //if the word being searched comes before the word in the dictionary
