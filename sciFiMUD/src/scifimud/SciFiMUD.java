@@ -126,7 +126,7 @@ public class SciFiMUD {
             }
             System.out.println("Saving data please wait...");
             //saving player data to a file
-            savePlayer(name, password, classChosen);
+            saveNewPlayer(name, password, classChosen);
             System.out.println("Successfully saved!");
             
             ConnectPlayer player = new ConnectPlayer();
@@ -159,7 +159,7 @@ public class SciFiMUD {
     
     //saves name of user, pass, class, and stats into a file. This is function is only for saving
     //a player who is new for the first time
-    static void savePlayer(String name, String password, String className) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException{
+    static void saveNewPlayer(String name, String password, String className) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException{
         
         try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
             //name

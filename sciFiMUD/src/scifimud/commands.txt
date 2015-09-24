@@ -9,10 +9,12 @@ level
 location
 look
 north
+quit
+save
 say
 self
 south
-stats
+status
 tell
 up
 west

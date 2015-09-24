@@ -5,6 +5,7 @@
  */
 package scifimud;
 
+import PlayerInformation.EncryptString;
 import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
@@ -16,6 +17,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ import rooms.Wastelands;
  */
 //creates an instance to connect a player
 public class ConnectPlayer {
-    private static final int TOTAL_WORDS = 19;
+    private static final int TOTAL_WORDS = 21;
     public static ArrayList<String> listOfWords = new ArrayList<>();
     
     
@@ -314,6 +317,9 @@ public class ConnectPlayer {
                         //in the future we will add displayRoom objects and descriptions
                         displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
                     }
+                    else{
+                        System.out.println("There is no exit there.");
+                    }
                     break;
                     
                 case "equipment":
@@ -351,6 +357,18 @@ public class ConnectPlayer {
                         //in the future we will add displayRoom objects and descriptions
                         displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
                     }
+                    else{
+                        System.out.println("There is no exit there.");
+                    }
+                    break;
+                case "quit":
+                    savePlayer(name, passwordInFile, className, level, experience, location, xCoordinate, yCoordinate, zCoordinate, bitcoins, status, inventory, weapon, torso, pants, head, shoes);
+                    System.out.println("Goodbye!");
+                    System.exit(0);    
+                    break;
+                    
+                case "save":
+                    savePlayer(name, passwordInFile, className, level, experience, location, xCoordinate, yCoordinate, zCoordinate, bitcoins, status, inventory, weapon, torso, pants, head, shoes);
                     break;
                     
                 case "say":
@@ -365,9 +383,12 @@ public class ConnectPlayer {
                         //in the future we will add displayRoom objects and descriptions
                         displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
                     }
+                    else{
+                        System.out.println("There is no exit there.");
+                    }
                     break;
                     
-                case "stats":
+                case "status":
                     System.out.println("You are " + status);
                     break;
                     
@@ -381,6 +402,9 @@ public class ConnectPlayer {
                         //in the future we will add displayRoom objects and descriptions
                         displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
                     }
+                    else{
+                        System.out.println("There is no exit there.");
+                    }
                     break;
                     
                 case "west":
@@ -389,6 +413,9 @@ public class ConnectPlayer {
                         //used for debugging purposes to make sure room is updating
                         //in the future we will add displayRoom objects and descriptions
                         displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    else{
+                        System.out.println("There is no exit there.");
                     }
                     break;
                     
@@ -476,7 +503,51 @@ public class ConnectPlayer {
        return listOfWords.get(location);
     }
     
+    //displays room coordinates. Useful for debugging
     public static void displayRoomCoordinates(int xCoordinate, int yCoordinate, int zCoordinate){
         System.out.printf("You are located in the room coordinates %d %d %d", xCoordinate, yCoordinate, zCoordinate);
+    }
+    
+    //saves player data to a file
+    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, String inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
+     
+         try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
+            //name
+            writer.println(name);
+            
+            writer.println(password);
+            //class 
+            writer.println(className);
+            //level of player
+            writer.printf("%d\n", level);
+            //experience of player
+            writer.printf("%d\n", experience);
+           
+            //map location of player
+            writer.printf("%s\n", location);
+            //map coordinates where player is located
+            writer.printf("%d %d %d\n", xCoordinate, yCoordinate, zCoordinate);
+            //amount of bitcoins player is carrying
+            writer.printf("%d\n", 0);
+            //players health status, ex: healthy, blind, sick, etc. 
+            //multiple affliction status will be separated by commas
+            writer.println(status);
+            //players inventory, all items are separated by a comma and will
+            //use a strtok to break up the items
+            writer.println("Empty");
+            
+            //players weapon equipment
+            writer.println(weapon);
+            //players head equipment
+            writer.println(head);
+            //players torso equipment
+            writer.println(torso);
+            //players pants equipments
+            writer.println(pants);
+            //players shoe equipment
+            writer.println(shoes);
+            System.out.println("Successfully saved player data");
+            writer.close();
+        }
     }
 }
