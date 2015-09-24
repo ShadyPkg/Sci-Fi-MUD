@@ -171,9 +171,9 @@ public class SciFiMUD {
             //class 
             writer.println(className);
             //level of player
-            writer.println("1");
+            writer.printf("%d\n", 1);
             //experience of player
-            writer.println("0");
+            writer.printf("%d\n", 0);
            
             //map location of player
             writer.println("The Pit");

@@ -26,6 +26,11 @@ public class Player implements Basic{
     private int experience;
     private int bitcoins;
     
+    //x, y, and z coordinates on the map
+    private int xCoordinate;
+    private int yCoordinate;
+    private int zCoordinate;
+    
     //stores player information
     private String name;
     private String password;
@@ -366,6 +371,62 @@ public class Player implements Basic{
     @Override
     public void bitcoins() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the bitcoins
+     */
+    public int getBitcoins() {
+        return bitcoins;
+    }
+
+    /**
+     * @param bitcoins the bitcoins to set
+     */
+    public void setBitcoins(int bitcoins) {
+        this.bitcoins = bitcoins;
+    }
+
+    /**
+     * @return the xCoordinate
+     */
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    /**
+     * @param xCoordinate the xCoordinate to set
+     */
+    public void setxCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    /**
+     * @return the yCoordinate
+     */
+    public int getyCoordinate() {
+        return yCoordinate;
+    }
+
+    /**
+     * @param yCoordinate the yCoordinate to set
+     */
+    public void setyCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    /**
+     * @return the zCoordinate
+     */
+    public int getzCoordinate() {
+        return zCoordinate;
+    }
+
+    /**
+     * @param zCoordinate the zCoordinate to set
+     */
+    public void setzCoordinate(int zCoordinate) {
+        this.zCoordinate = zCoordinate;
     }
     
 }

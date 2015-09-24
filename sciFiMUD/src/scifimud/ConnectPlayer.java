@@ -9,11 +9,16 @@ import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
 import classes.NanoMedic;
+import classes.Player;
 import classes.TimeTraveler;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import rooms.CentralHub;
 import rooms.Factory;
@@ -29,7 +34,8 @@ import rooms.Wastelands;
  */
 //creates an instance to connect a player
 public class ConnectPlayer {
-    
+    private static final int TOTAL_WORDS = 19;
+    public static ArrayList<String> listOfWords = new ArrayList<>();
     
     
     public ConnectPlayer(){
@@ -40,28 +46,55 @@ public class ConnectPlayer {
         String nameInFile;
         String className;
         String location;
+        String passwordInFile;
+        int level = 1;
+        int experience = 0;
+        int xCoordinate = 0;
+        int yCoordinate = 0;
+        int zCoordinate = 0;
+        int bitcoins = 0;
+        String status;
+        String inventory;
+        String weapon;
+        String head;
+        String torso;
+        String pants;
+        String shoes;
         
-        try(BufferedReader br = new BufferedReader(new FileReader("src/PlayerInformation/" + name + ".txt"))){
+        
+        String dummy;
+        
+        try(Scanner sc = new Scanner(new File("src/PlayerInformation/" + name + ".txt"))){
             
-            nameInFile = br.readLine();
-            String passwordInFile = br.readLine();
-            className = br.readLine();
-            String level = br.readLine();
-            String experience = br.readLine();
-            location = br.readLine();
-            String mapCoordinates = br.readLine();
+            nameInFile = sc.nextLine();
+            passwordInFile = sc.nextLine();
+            className = sc.nextLine();
+            level = sc.nextInt();
+            //used to read in extra newline character that appears after nextInt
+           sc.nextLine();
             
-            String bitcoins = br.readLine();
-            String status = br.readLine();
-            String inventory = br.readLine();
+            experience = sc.nextInt();
+            sc.nextLine();
+            location = sc.nextLine();
+            xCoordinate = sc.nextInt();
             
-            String weapon = br.readLine();
-            String head = br.readLine();
-            String torso = br.readLine();
-            String pants = br.readLine();
-            String shoes = br.readLine();
+            yCoordinate = sc.nextInt();
             
-            br.close();
+            zCoordinate = sc.nextInt();
+            sc.nextLine();
+            
+            bitcoins = sc.nextInt();
+            sc.nextLine();
+            status = sc.nextLine();
+            inventory = sc.nextLine();
+            
+            weapon = sc.nextLine();
+            head = sc.nextLine();
+            torso = sc.nextLine();
+            pants = sc.nextLine();
+            shoes = sc.nextLine();
+            
+            sc.close();
             
         }
         
@@ -123,45 +156,117 @@ public class ConnectPlayer {
                 
         }
         //intitalizing map
-        ThePit[][][] mainMap;
-        CentralHub[][][] hubMap;
-        Factory[][][] factoryMap;
-        Sewers[][][] sewerMap;
-        TrainStation[][][] trainMap;
-        Wastelands[][][] wastelandsMap;
-        Secret[][][] secretMap;
-        
+        ThePit[][][] mainMap = null;
+        CentralHub[][][] hubMap = null;
+        Factory[][][] factoryMap = null;
+        Sewers[][][] sewerMap = null;
+        TrainStation[][][] trainMap = null;
+        Wastelands[][][] wastelandsMap = null;
+        Secret[][][] secretMap = null;
+        int i;
+        int j;
+        int k;
+        //later on we will inititalize map rooms individually.
+        //For now we mass intitalize rooms to get a basic working map
         switch(location){
             case "The Pit":
                 mainMap = new ThePit[100][100][5];
+                
+                for(i=0; i<100; i++){
+                    for(j=0; j<100; j++){
+                        for(k=0; k<5; k++){
+                            mainMap[i][j][k] = new ThePit("The Pit", "You look in horror as dead bodies lay everywhere. Something horrific must have happened.", (100*i)+(10*j)+k );
+                        }
+                    }
+                    
+                }
                 System.out.println("You have entered The Pit. Dead bodies of fallen heros lay everywhere. Will you join them or will you survive?");
                 
                 break;
             case "Central Hub":
                 hubMap = new CentralHub[50][200][3];
+                
+                for(i=0; i<50; i++){
+                    for(j=0; j<200; j++){
+                        for(k=0; k<3; k++){
+                            hubMap[i][j][k] = new CentralHub();
+                        }
+                    }
+                    
+                }
                 System.out.println("You have entered The Hub. The center of information and exchange.");
                 break;
                 
             case "Factory":
                 factoryMap = new Factory[150][80][4];
+                
+                
+                for(i=0; i<150; i++){
+                    for(j=0; j<80; j++){
+                        for(k=0; k<4; k++){
+                            factoryMap[i][j][k] = new Factory();
+                        }
+                    }
+                    
+                }
                 System.out.println("Levers and cranks churn as you enter the factory.");
                 break;
                 
             case "Sewers":
                 sewerMap = new Sewers[200][200][10];
+                
+                
+                for(i=0; i<200; i++){
+                    for(j=0; j<200; j++){
+                        for(k=0; k<10; k++){
+                            sewerMap[i][j][k] = new Sewers();
+                        }
+                    }
+                    
+                }
                 System.out.println("This place really reeks! Lets get out of here before you pass out!");
                 break;
                 
             case "TrainStation":
                 trainMap = new TrainStation[200][10][1];
+                
+                
+                for(i=0; i<200; i++){
+                    for(j=0; j<10; j++){
+                        for(k=0; k<1; k++){
+                            trainMap[i][j][k] = new TrainStation();
+                        }
+                    }
+                    
+                }
                 System.out.println("An old underground train station still remains here.");
             case "Wastelands":
                 wastelandsMap = new Wastelands[300][300][20];
+                
+                
+                for(i=0; i<300; i++){
+                    for(j=0; j<300; j++){
+                        for(k=0; k<20; k++){
+                            wastelandsMap[i][j][k] = new Wastelands();
+                        }
+                    }
+                    
+                }
                 System.out.println("You are either very brave or very foolish for venturing out here.");
                 break;
                 
             case "Secret":
                 secretMap = new Secret[5][5][5];
+                
+                
+                for(i=0; i<5; i++){
+                    for(j=0; j<5; j++){
+                        for(k=0; k<5; k++){
+                            secretMap[i][j][k] = new Secret();
+                        }
+                    }
+                    
+                }
                 System.out.println("Only a few have ever discovered this place.");
                 break;        
                 
@@ -181,9 +286,196 @@ public class ConnectPlayer {
                 System.out.println("Goodbye!");
                 System.exit(0);
             }    
-            command = stdin.nextLine();
+            
+            
+           command = stdin.nextLine();
+           //str1.contains(str2)
+           command = binarySearch(command); 
+
+            
+            switch(command){
+                case "bitcoins":
+                    System.out.println("You are carrying " + bitcoins + " bitcoins.");
+                    break;
+                case "down":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isDown()){
+                        zCoordinate--;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "east":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isEast()){
+                        xCoordinate++;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "equipment":
+                    System.out.println("You are wearing :");
+                    System.out.println("Weapon : " + weapon);
+                    System.out.println("Head : " + head);
+                    System.out.println("Torso : " + torso);
+                    System.out.println("Head : " + head);
+                    System.out.println("Shoes : " + shoes);
+                    break;
+                case "examine":
+                    break;
+                    
+                case "here":
+                    break;
+                    
+                case "inventory":
+                    break;
+                case "level":
+                    System.out.println("You are level " + level);
+                    break;
+                    
+                case "location":
+                    System.out.println("You are at the " + location);
+                    break;
+                    
+                case "look":
+                    System.out.println(ThePit.roomDescription);
+                    break;
+                    
+                case  "north":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isNorth()){
+                        yCoordinate++;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "say":
+                    break;
+                    
+                case "self":
+                    break;
+                case "south":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isSouth()){
+                        yCoordinate--;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "stats":
+                    System.out.println("You are " + status);
+                    break;
+                    
+                case "tell":
+                    break;
+                    
+                case "up":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isUp()){
+                        zCoordinate++;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "west":
+                    if(mainMap[xCoordinate][yCoordinate][zCoordinate].isWest()){
+                        xCoordinate--;
+                        //used for debugging purposes to make sure room is updating
+                        //in the future we will add displayRoom objects and descriptions
+                        displayRoomCoordinates(xCoordinate, yCoordinate, zCoordinate);
+                    }
+                    break;
+                    
+                case "yell":
+                    break;
+                    
+                default:
+                    //incorrect string was typed "null"
+                    System.out.println("I do not understand.");
+                    break;
+                    
+            }
         }
     }
     
+    public static String binarySearch(String word){
+          int i;
+        
+        int low=0;
+        int high = TOTAL_WORDS-1;
+        int mid;
+        
+        
+        while(low<= high){
+            
+            mid=(high+low)/2;
+            
+            //if a partial match is found return the word
+            if(word.contains(listOfWords.get(mid))){
+                return listOfWords.get(mid);
+            }
+            //if the word being searched comes before the word in the dictionary
+            //then the you want to search an earlier word
+            if(word.compareTo(listOfWords.get(mid))<0){
+                high=mid-1;
+            }
+            //if the word being searched comes after the word in the dictionary 
+            //then you wan tto search for a later word
+            else if(word.compareTo(listOfWords.get(mid))>0){
+                low=mid+1;
+            }
+            else{
+                //if an exact match is found return the word
+                return listOfWords.get(mid);
+            }
+        }
+        //if all words in dictionary are checked and none match then return null to indicate no word matching word was found
+        return "null";
+    }
     
+    public static void readDict() throws FileNotFoundException, URISyntaxException{
+         URL url = ConnectPlayer.class.getResource("commands.txt");
+        
+       
+        File file = new File(url.toURI());
+        Scanner fDic;
+    
+        fDic = new Scanner((file));
+        int i;
+        int j;
+        String current_word;
+
+        //intitializing dictionary
+
+        for(i=0; i<TOTAL_WORDS; i++){
+            listOfWords.add(null);
+        }
+
+
+        for(j=0; j<TOTAL_WORDS; j++){
+            current_word= fDic.next();
+            setWord(j, current_word);
+        }
+        
+        fDic.close();
+    }
+    
+    //sets the word in the commands.txt
+    public static void setWord(int location, String word){
+         listOfWords.set(location, word);
+        
+    }
+    //gets the word in the commands .txt
+    public static String getWord(int location){
+       return listOfWords.get(location);
+    }
+    
+    public static void displayRoomCoordinates(int xCoordinate, int yCoordinate, int zCoordinate){
+        System.out.printf("You are located in the room coordinates %d %d %d", xCoordinate, yCoordinate, zCoordinate);
+    }
 }

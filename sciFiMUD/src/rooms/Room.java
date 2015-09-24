@@ -12,20 +12,20 @@ package rooms;
 //superclass
 public class Room {
     //this will be handy in the future when we need to identify a room
-    private int roomID;
+    int roomID;
     //what will be displayed in each room when a charater walks in
-    private String roomDescription;
+    public static String roomDescription = "empty room description";
     //map area such as ThePit, Factory, CentralHub, etc
-    private String area;
+    String area;
     //3 coordinates to store x, y, z location in an area
     private int[] roomCoordinates = new int[3];
     
-    //by default all directions are disabled. 
+    //by default all directions are disabled except north, east, south and west. 
     //when room is actually created we enable directions and doors accordingly
-    private boolean north = false;
-    private boolean south = false;
-    private boolean east = false;
-    private boolean west = false;
+    private boolean north = true;
+    private boolean south = true;
+    private boolean east = true;
+    private boolean west = true;
     private boolean up = false;
     private boolean down = false;
     private boolean northDoor = false;

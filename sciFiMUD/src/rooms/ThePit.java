@@ -13,4 +13,11 @@ public class ThePit extends Room{
     public ThePit(){
         
     }
+    public ThePit(String thisLocation, String thisDescription, int id){
+        super.area = thisLocation;
+        roomDescription = thisDescription;
+        super.roomID = id;
+    }
+
+    
 }
