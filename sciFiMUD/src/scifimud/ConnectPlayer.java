@@ -37,8 +37,9 @@ import rooms.Wastelands;
  */
 //creates an instance to connect a player
 public class ConnectPlayer {
-    private static final int TOTAL_WORDS = 21;
+    private static final int TOTAL_WORDS = 24;
     public static ArrayList<String> listOfWords = new ArrayList<>();
+   
     
     
     public ConnectPlayer(){
@@ -64,6 +65,9 @@ public class ConnectPlayer {
         String pants;
         String shoes;
         
+        int health;
+        int energy;
+        
        
         
         try(Scanner sc = new Scanner(new File("src/PlayerInformation/" + name + ".txt"))){
@@ -73,7 +77,7 @@ public class ConnectPlayer {
             className = sc.nextLine();
             level = sc.nextInt();
             //used to read in extra newline character that appears after nextInt
-           sc.nextLine();
+            sc.nextLine();
             
             experience = sc.nextInt();
             sc.nextLine();
@@ -99,57 +103,69 @@ public class ConnectPlayer {
             sc.close();
             
         }
+        //initalizing classes
+        Cyborg cyborg = new Cyborg();
+        NanoMedic nanomedic = new NanoMedic();
+        CyberSecurityArchitect cybersecurityarchitect = new CyberSecurityArchitect();
+        TimeTraveler timetraveler = new TimeTraveler();
+        BlackHandRogue blackhandrogue = new BlackHandRogue();
         
+        Player objectName = null;
         //creates new player associated with his/her class
         switch(className){
             case "Cyborg":
-                Cyborg cyborg = new Cyborg();
+                
                 cyborg.setHealth(100);
                 cyborg.setEnergy(50);
                 cyborg.setAttack(23);
                 cyborg.setSpeed(21);
                 cyborg.setDefense(20);
                 cyborg.setIntelligence(22);
+                objectName = cyborg;
                 break;
             
             case "NanoMedic":
-                NanoMedic nanomedic = new NanoMedic();
+                
                 nanomedic.setHealth(90);
                 nanomedic.setEnergy(70);
                 nanomedic.setAttack(19);
                 nanomedic.setSpeed(20);
                 nanomedic.setDefense(19);
                 nanomedic.setIntelligence(23);
+                objectName = nanomedic;
                 break;
             
             case "Cyber Security Architect":
-                CyberSecurityArchitect cybersecurityarchitect = new CyberSecurityArchitect();
+                
                 cybersecurityarchitect.setHealth(60);
                 cybersecurityarchitect.setEnergy(90);
                 cybersecurityarchitect.setAttack(18);
                 cybersecurityarchitect.setSpeed(21);
                 cybersecurityarchitect.setDefense(19);
                 cybersecurityarchitect.setIntelligence(25);
+                objectName = cybersecurityarchitect;
                 break;
             
             case "Time Traveler":
-                TimeTraveler timetraveler = new TimeTraveler();
+                
                 timetraveler.setHealth(70);
                 timetraveler.setEnergy(100);
                 timetraveler.setAttack(20);
                 timetraveler.setSpeed(25);
                 timetraveler.setDefense(19);
-                timetraveler.setIntelligence(24);    
+                timetraveler.setIntelligence(24);   
+                objectName = timetraveler;
                 break;
             
             case "Blackhand Rogue":
-                BlackHandRogue blackhandrogue = new BlackHandRogue();
+                
                 blackhandrogue.setHealth(80);
                 blackhandrogue.setEnergy(80);
                 blackhandrogue.setAttack(22);
                 blackhandrogue.setSpeed(26);
                 blackhandrogue.setDefense(19);
                 blackhandrogue.setIntelligence(21);
+                objectName = blackhandrogue;
                 break;
             //in case the file did not read the class properly it will terminate application
             default:
@@ -389,6 +405,8 @@ public class ConnectPlayer {
                     break;
                     
                 case "status":
+                    System.out.println("Your health is " + objectName.getHealth());
+                    System.out.println("Your energy is " + objectName.getEnergy());
                     System.out.println("You are " + status);
                     break;
                     
@@ -421,7 +439,12 @@ public class ConnectPlayer {
                     
                 case "yell":
                     break;
-                    
+                case "health":
+                    break;
+                case "energy":
+                    break;
+                case "statistics":
+                    break;
                 default:
                     //incorrect string was typed "null"
                     System.out.println("I do not understand.");
@@ -505,7 +528,7 @@ public class ConnectPlayer {
     
     //displays room coordinates. Useful for debugging
     public static void displayRoomCoordinates(int xCoordinate, int yCoordinate, int zCoordinate){
-        System.out.printf("You are located in the room coordinates %d %d %d", xCoordinate, yCoordinate, zCoordinate);
+        System.out.printf("You are located in the room coordinates %d %d %d\n", xCoordinate, yCoordinate, zCoordinate);
     }
     
     //saves player data to a file
