@@ -6,6 +6,14 @@
 package classes;
 
 import Skills.Basic;
+import rooms.CentralHub;
+import rooms.Factory;
+import rooms.Room;
+import rooms.Secret;
+import rooms.Sewers;
+import rooms.ThePit;
+import rooms.TrainStation;
+import rooms.Wastelands;
 
 /**
  *
@@ -30,6 +38,11 @@ public class Player implements Basic{
     private int xCoordinate;
     private int yCoordinate;
     private int zCoordinate;
+    private String location;
+    
+    private Room[][][] map;
+    private Room room;
+  
     
     //stores player information
     private String name;
@@ -37,6 +50,8 @@ public class Player implements Basic{
     //name of the class such as Cyborg, Time Traveller, etc
     private String className;
     private String status;
+    //for now a player can have a max of 100 items in his inventory
+    private Object[] inventory = new Object[100];
     
     //players equipment
     private String weapon;
@@ -287,6 +302,7 @@ public class Player implements Basic{
         this.status = status;
     }
 
+   
     @Override
     public void look() {
        
@@ -314,7 +330,12 @@ public class Player implements Basic{
 
     @Override
     public void equipment() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("You are wearing :");
+        System.out.println("Weapon : " + getWeapon());
+        System.out.println("Head : " + getHead());
+        System.out.println("Torso : " + getTorso());
+        System.out.println("Head : " + getHead());
+        System.out.println("Shoes : " + getShoes());
     }
 
     @Override
@@ -324,22 +345,82 @@ public class Player implements Basic{
 
     @Override
     public void east() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isEast()){
+            setxCoordinate(getxCoordinate() + 1);
+            setxCoordinate(getxCoordinate());
+            //used for debugging purposes to make sure room is updating
+            //in the future we will add displayRoom objects and descriptions
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
     }
 
     @Override
     public void west() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isWest()){
+            setxCoordinate(getxCoordinate() - 1);
+            setxCoordinate(getxCoordinate());
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
     }
 
     @Override
     public void south() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isSouth()){
+            setyCoordinate(getyCoordinate() - 1);
+            setyCoordinate(getyCoordinate());
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
     }
 
     @Override
     public void north() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isNorth()){
+            setyCoordinate(getyCoordinate() + 1);
+            setyCoordinate(getyCoordinate());
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
+    }
+    
+     @Override
+    public void up() {
+        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isUp()){
+            setzCoordinate(getzCoordinate() + 1);
+            setzCoordinate(getzCoordinate());
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
+    }
+
+    @Override
+    public void down() {
+        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isDown()){
+            setzCoordinate(getzCoordinate() - 1);
+            setzCoordinate(getzCoordinate());
+            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+
+        }
+        else{
+            System.out.println("There is no exit there.");
+        }
     }
 
     @Override
@@ -354,7 +435,7 @@ public class Player implements Basic{
 
     @Override
     public void level() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("You are level " + getLevel());
     }
 
     @Override
@@ -428,5 +509,105 @@ public class Player implements Basic{
     public void setzCoordinate(int zCoordinate) {
         this.zCoordinate = zCoordinate;
     }
+
+    /**
+     * @return the location
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * @param location the location to set
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * @return the area
+     */
+    public Object[][][] getArea() {
+        return getMap();
+    }
+
+    /**
+     * @param area the area to set
+     */
+  
+  
+
+    /**
+     * @param x
+     * @param y
+     * @param z
+     * @return the room
+     */
+    public Room getRoom(int x, int y, int z) {
+        return getMap()[x][y][z];
+    }
+
+    /**
+     * @param room the room to set
+     */
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+    
+    public void setArea(ThePit[][][] mainMap) {
+        map = mainMap;
+    }
+
+    public void setArea(CentralHub[][][] hubMap) {
+        map = hubMap;
+    }
+    public void setArea(Factory[][][] factoryMap) {
+        map = factoryMap;
+    }
+    public void setArea(Sewers[][][] sewerMap) {
+        map = sewerMap;
+    }
+    public void setArea(TrainStation[][][] trainMap) {
+        map = trainMap;
+    }
+    public void setArea(Wastelands[][][] wastelandsMap) {
+        map = wastelandsMap;
+    }
+    public void setArea(Secret[][][] secretMap) {
+        map = secretMap;
+    }
+
+    /**
+     * @return the map
+     */
+    public Room[][][] getMap() {
+        return map;
+    }
+
+  
+    /**
+     * @return the room
+     */
+    public Room getRoom() {
+        return room;
+    }
+
+   
+
+    /**
+     * @return the inventory
+     */
+    public Object[] getInventory() {
+        return inventory;
+    }
+
+    /**
+     * @param inventory the inventory to set
+     */
+    public void setInventory(Object[] inventory) {
+        this.inventory = inventory;
+    }
+
+   
     
 }

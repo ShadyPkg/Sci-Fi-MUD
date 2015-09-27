@@ -50,6 +50,10 @@ public interface Basic {
     void south();
     //allows a player to go north
     void north();
+    //allows a player to go up
+    void up();
+    //allows a player to go down
+    void down();
     
     
 }

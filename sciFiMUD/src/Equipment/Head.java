@@ -7,7 +7,7 @@ package Equipment;
 
 /**
  *
- * @author root
+ * @author jonc
  */
 public class Head {
     
