@@ -10,6 +10,10 @@ package Equipment;
  * @author root
  */
 public class Shoes {
+    
+    //what the equipment is called, this will also be used to save and read from file
+    //the inventory of a player
+    private String name;
     //wearing certain equpiment boost players stats
     private int health;
     private int energy;
@@ -17,7 +21,8 @@ public class Shoes {
     private int speed;
     private int defense;
     private int intelligence;
-
+    String specialEffect;
+    private String type;
     /**
      * @return the health
      */
@@ -100,5 +105,19 @@ public class Shoes {
      */
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

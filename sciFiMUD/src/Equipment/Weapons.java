@@ -11,6 +11,9 @@ package Equipment;
  */
 public class Weapons {
    
+    //what the equipment is called, this will also be used to save and read from file
+    //the inventory of a player
+    private String name;
     //wearing certain equpiment boost players stats
     private int health;
     private int energy;
@@ -18,6 +21,12 @@ public class Weapons {
     private int speed;
     private int defense;
     private int intelligence;
+    //special effects are like when an Ice blade can "chill" the enemy or 
+    //a poison dart has the special effect "poison"
+    private String specialEffect;
+    //weapon type is like blades, guns, etc. This is usd because some classes can only use certain weapons,
+    //for example nanomedic can not use guns but can use a scalpel or blades.
+    private String type;
 
     /**
      * @return the health
@@ -101,5 +110,47 @@ public class Weapons {
      */
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the specialEffect
+     */
+    public String getSpecialEffect() {
+        return specialEffect;
+    }
+
+    /**
+     * @param specialEffect the specialEffect to set
+     */
+    public void setSpecialEffect(String specialEffect) {
+        this.specialEffect = specialEffect;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 }

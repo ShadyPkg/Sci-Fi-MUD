@@ -10,6 +10,10 @@ package Equipment;
  * @author root
  */
 public class Torso {
+    
+    //what the equipment is called, this will also be used to save and read from file
+    //the inventory of a player
+    private String name;
     //wearing certain equpiment boost players stats
     private int health;
     private int energy;
@@ -17,7 +21,8 @@ public class Torso {
     private int speed;
     private int defense;
     private int intelligence;
-
+    private String specialEffect;
+    private String type;
     /**
      * @return the health
      */
@@ -100,5 +105,47 @@ public class Torso {
      */
     public void setIntelligence(int intelligence) {
         this.intelligence = intelligence;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the specialEffect
+     */
+    public String getSpecialEffect() {
+        return specialEffect;
+    }
+
+    /**
+     * @param specialEffect the specialEffect to set
+     */
+    public void setSpecialEffect(String specialEffect) {
+        this.specialEffect = specialEffect;
+    }
+
+    /**
+     * @return the type
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 }

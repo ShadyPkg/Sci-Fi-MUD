@@ -4,7 +4,7 @@ Blackhand Rogue
 1
 0
 The Pit
-54 39 3
+55 38 3
 0
 Normal
 Empty
