@@ -9,7 +9,6 @@ import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
 import classes.NanoMedic;
-import classes.Player;
 import classes.TimeTraveler;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +19,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import rooms.CentralHub;
 import rooms.Factory;
 import rooms.Secret;
@@ -28,6 +26,8 @@ import rooms.Sewers;
 import rooms.ThePit;
 import rooms.TrainStation;
 import rooms.Wastelands;
+import static scifimud.ClassCreator.className;
+
 
 /**
  *
@@ -55,8 +55,7 @@ public class ConnectPlayer {
     static TimeTraveler timetraveler = new TimeTraveler();
     static BlackHandRogue blackhandrogue = new BlackHandRogue();
     
-    //will be used as a global reference to the class the player selected
-    static Player className;
+    
     
     
     public ConnectPlayer(){
@@ -65,12 +64,12 @@ public class ConnectPlayer {
     //connects player and gets data to setup a player on the map
     public void connect(String name) throws FileNotFoundException, IOException, URISyntaxException{
         
-       
+        
         //setting up players class
-        initalizeClass(name);
+        ClassCreator.initalizeClass(name);
         
         //setting up the map based on where the player is located
-        initializeMap(className.getLocation());
+        MapCreator.initializeMap(className.getLocation());
  
         //reading in words, in the future pass in the classname so class skills can be added to the arraylist as well
         readDict();
@@ -242,7 +241,7 @@ public class ConnectPlayer {
     }
     
     public static String binarySearch(String word){
-          int i;
+        int i;
         
         int low=0;
         int high = TOTAL_WORDS-1;
@@ -278,14 +277,13 @@ public class ConnectPlayer {
     
     public static void readDict() throws FileNotFoundException, URISyntaxException{
          URL url = ConnectPlayer.class.getResource("commands.txt");
-        
-       
+
         File file = new File(url.toURI());
         Scanner fDic;
     
         fDic = new Scanner((file));
         int i;
-        int j;
+  
         String current_word;
 
         //intitializing dictionary
@@ -295,28 +293,18 @@ public class ConnectPlayer {
         }
 
 
-        for(j=0; j<TOTAL_WORDS; j++){
+        for(i=0; i<TOTAL_WORDS; i++){
             current_word= fDic.next();
-            setWord(j, current_word);
+            listOfWords.set(i, current_word);
+           
         }
         
         fDic.close();
     }
     
-    //sets the word in the commands.txt
-    public static void setWord(int location, String word){
-         listOfWords.set(location, word);
-        
-    }
-    //gets the word in the commands .txt
-    public static String getWord(int location){
-       return listOfWords.get(location);
-    }
-    
-   
-    
+  
     //saves player data to a file
-    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, Object[] inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Object> inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
      
          try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
             //name
@@ -329,7 +317,6 @@ public class ConnectPlayer {
             writer.printf("%d\n", level);
             //experience of player
             writer.printf("%d\n", experience);
-           
             //map location of player
             writer.printf("%s\n", location);
             //map coordinates where player is located
@@ -341,7 +328,7 @@ public class ConnectPlayer {
             writer.println(status);
             //players inventory, all items are separated by a comma and will
             //use a strtok to break up the items
-            writer.println("Empty");
+            writer.println(ObjectCreator.saveInventory(inventory));
             
             //players weapon equipment
             writer.println(weapon);
@@ -391,356 +378,8 @@ public class ConnectPlayer {
         }
     }
     
-    public static void initializeMap(String location){
-        
-        int i;
-        int j;
-        int k;
-        
-        //later on we will inititalize map rooms individually.
-        //For now we mass intitalize rooms to get a basic working map
-        
-        switch(location){
-            case "The Pit":
-                mainMap = new ThePit[100][100][5];
-                className.setArea(mainMap);
-                for(i=0; i<100; i++){
-                    for(j=0; j<100; j++){
-                        for(k=0; k<5; k++){
-                            mainMap[i][j][k] = new ThePit("The Pit", "You look in horror as dead bodies lay everywhere. Something horrific must have happened.", (100*i)+(10*j)+k, i, j, k );
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("You have entered The Pit. Dead bodies of fallen heros lay everywhere. Will you join them or will you survive?");
-                
-                break;
-            case "Central Hub":
-                hubMap = new CentralHub[50][200][3];       
-                className.setArea(hubMap);
-                
-                for(i=0; i<50; i++){
-                    for(j=0; j<200; j++){
-                        for(k=0; k<3; k++){
-                            hubMap[i][j][k] = new CentralHub();
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("You have entered The Hub. The center of information and exchange.");
-                break;
-                
-            case "Factory":
-                factoryMap = new Factory[150][80][4];
-                className.setArea(factoryMap);
-                
-                for(i=0; i<150; i++){
-                    for(j=0; j<80; j++){
-                        for(k=0; k<4; k++){
-                            factoryMap[i][j][k] = new Factory();
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("Levers and cranks churn as you enter the factory.");
-                break;
-                
-            case "Sewers":
-                sewerMap = new Sewers[200][200][10];
-                className.setArea(sewerMap);
-                
-                for(i=0; i<200; i++){
-                    for(j=0; j<200; j++){
-                        for(k=0; k<10; k++){
-                            sewerMap[i][j][k] = new Sewers();
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("This place really reeks! Lets get out of here before you pass out!");
-                break;
-                
-            case "TrainStation":
-                trainMap = new TrainStation[200][10][1];
-                className.setArea(trainMap);
-                
-                for(i=0; i<200; i++){
-                    for(j=0; j<10; j++){
-                        for(k=0; k<1; k++){
-                            trainMap[i][j][k] = new TrainStation();
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("An old underground train station still remains here.");
-            case "Wastelands":
-                wastelandsMap = new Wastelands[300][300][20];
-                className.setArea(wastelandsMap);
-                
-                for(i=0; i<300; i++){
-                    for(j=0; j<300; j++){
-                        for(k=0; k<20; k++){
-                            wastelandsMap[i][j][k] = new Wastelands();
-                            
-                        }
-                    }
-                    
-                }
-                System.out.println("You are either very brave or very foolish for venturing out here.");
-                break;
-                
-            case "Secret":
-                secretMap = new Secret[5][5][5];
-                className.setArea(secretMap);
-                
-                for(i=0; i<5; i++){
-                    for(j=0; j<5; j++){
-                        for(k=0; k<5; k++){
-                            secretMap[i][j][k] = new Secret();
-                        }
-                    }
-                    
-                }
-                System.out.println("Only a few have ever discovered this place.");
-                break;        
-                
-            default:
-                System.out.println("Error intitalizing map. Invalid map name please contact admin.");
-                System.exit(0);
-                break;
-        }
-    }
-    public static void initalizeClass(String name) throws FileNotFoundException{
-        
-        String nameInFile;
-        String classname;
-        String location;
-        String passwordInFile;
-        int level = 1;
-        int experience = 0;
-        int xCoordinate = 0;
-        int yCoordinate = 0;
-        int zCoordinate = 0;
-        int bitcoins = 0;
-        String status;
-        String inventory;
-        String weapon;
-        String head;
-        String torso;
-        String pants;
-        String shoes;
-        
-        int health;
-        int energy;
-            
-        try(Scanner sc = new Scanner(new File("src/PlayerInformation/" + name + ".txt"))){
-            
-            nameInFile = sc.nextLine();
-            passwordInFile = sc.nextLine();
-            classname = sc.nextLine();
-            level = sc.nextInt();
-            //used to read in extra newline character that appears after nextInt
-            sc.nextLine();
-            
-            experience = sc.nextInt();
-            sc.nextLine();
-            location = sc.nextLine();
-            xCoordinate = sc.nextInt();
-            
-            yCoordinate = sc.nextInt();
-            
-            zCoordinate = sc.nextInt();
-            sc.nextLine();
-            
-            bitcoins = sc.nextInt();
-            sc.nextLine();
-            status = sc.nextLine();
-            inventory = sc.nextLine();
-            
-            weapon = sc.nextLine();
-            head = sc.nextLine();
-            torso = sc.nextLine();
-            pants = sc.nextLine();
-            shoes = sc.nextLine();
-            
-            sc.close();
-            
-        }
-
-        //creates new player associated with his/her class
-        switch(classname){
-            case "Cyborg":
-                
-                cyborg.setName(name);
-                cyborg.setPassword(passwordInFile);
-                cyborg.setClassName(classname);
-                cyborg.setLevel(level);
-                cyborg.setExperience(experience);
-                cyborg.setLocation(location);
-                cyborg.setxCoordinate(xCoordinate);
-                cyborg.setyCoordinate(yCoordinate);
-                cyborg.setzCoordinate(zCoordinate);
-                
-                cyborg.setBitcoins(bitcoins);
-                cyborg.setStatus(status);
-                //for now inventory will be empty we will implement this later
-                cyborg.setInventory(null);
-
-                cyborg.setHealth(100 + (level*30));
-                cyborg.setEnergy(50);
-                cyborg.setAttack(23);
-                cyborg.setSpeed(21);
-                cyborg.setDefense(20);
-                cyborg.setIntelligence(22);
- 
-                cyborg.setWeapon(weapon);
-                cyborg.setTorso(torso);
-                cyborg.setHead(head);
-                cyborg.setPants(pants);
-                cyborg.setShoes(shoes);
-                className = cyborg;
-                break;
-            
-            case "NanoMedic":
-                
-                nanomedic.setName(name);
-                nanomedic.setPassword(passwordInFile);
-                nanomedic.setClassName(classname);
-                nanomedic.setBitcoins(bitcoins);
-                
-                nanomedic.setHealth(90 + (level*10));
-                nanomedic.setEnergy(70);
-                nanomedic.setAttack(19);
-                nanomedic.setSpeed(20);
-                nanomedic.setDefense(19);
-                nanomedic.setIntelligence(23);
-                nanomedic.setLevel(level);
-                nanomedic.setExperience(experience);
-                
-                nanomedic.setxCoordinate(xCoordinate);
-                nanomedic.setyCoordinate(yCoordinate);
-                nanomedic.setzCoordinate(zCoordinate);
-                nanomedic.setLocation(location);
-                nanomedic.setStatus(status);
-                //for now inventory will be empty we will implement this later
-                nanomedic.setInventory(null);
-                
-                nanomedic.setWeapon(weapon);
-                nanomedic.setTorso(torso);
-                nanomedic.setHead(head);
-                nanomedic.setPants(pants);
-                nanomedic.setShoes(shoes);
-                className = nanomedic;
-                break;
-            
-            case "Cyber Security Architect":
-                
-                cybersecurityarchitect.setName(name);
-                cybersecurityarchitect.setPassword(passwordInFile);
-                cybersecurityarchitect.setClassName(classname);
-                cybersecurityarchitect.setBitcoins(bitcoins);
-                
-                cybersecurityarchitect.setHealth(60 + (level*15));
-                cybersecurityarchitect.setEnergy(90);
-                cybersecurityarchitect.setAttack(18);
-                cybersecurityarchitect.setSpeed(21);
-                cybersecurityarchitect.setDefense(19);
-                cybersecurityarchitect.setIntelligence(25);
-                cybersecurityarchitect.setLevel(level);
-                cybersecurityarchitect.setExperience(experience);
-                
-                cybersecurityarchitect.setxCoordinate(xCoordinate);
-                cybersecurityarchitect.setyCoordinate(yCoordinate);
-                cybersecurityarchitect.setzCoordinate(zCoordinate);
-                cybersecurityarchitect.setLocation(location);
-                cybersecurityarchitect.setStatus(status);
-                //for now inventory will be empty we will implement this later
-                cybersecurityarchitect.setInventory(null);
-                
-                cybersecurityarchitect.setWeapon(weapon);
-                cybersecurityarchitect.setTorso(torso);
-                cybersecurityarchitect.setHead(head);
-                cybersecurityarchitect.setPants(pants);
-                cybersecurityarchitect.setShoes(shoes);
-                
-                className = cybersecurityarchitect;
-                break;
-            
-            case "Time Traveler":
-                
-                timetraveler.setName(name);
-                timetraveler.setPassword(passwordInFile);
-                timetraveler.setClassName(classname);
-                timetraveler.setBitcoins(bitcoins);
-                
-                timetraveler.setHealth(70 + (level*20));
-                timetraveler.setEnergy(100);
-                timetraveler.setAttack(20);
-                timetraveler.setSpeed(25);
-                timetraveler.setDefense(19);
-                timetraveler.setIntelligence(24); 
-                timetraveler.setLevel(level);
-                timetraveler.setExperience(experience);
-                
-                timetraveler.setxCoordinate(xCoordinate);
-                timetraveler.setyCoordinate(yCoordinate);
-                timetraveler.setzCoordinate(zCoordinate);
-                timetraveler.setLocation(location);
-                timetraveler.setStatus(status);
-                
-                timetraveler.setInventory(null);
-                
-                timetraveler.setWeapon(weapon);
-                timetraveler.setTorso(torso);
-                timetraveler.setHead(head);
-                timetraveler.setPants(pants);
-                timetraveler.setShoes(shoes);
-                className = timetraveler;
-                break;
-            
-            case "Blackhand Rogue":
-                
-                blackhandrogue.setName(name);
-                blackhandrogue.setPassword(passwordInFile);
-                blackhandrogue.setClassName(classname);
-                blackhandrogue.setBitcoins(bitcoins);
-                
-                blackhandrogue.setHealth(80 + (level*25));
-                blackhandrogue.setEnergy(80);
-                blackhandrogue.setAttack(22);
-                blackhandrogue.setSpeed(26);
-                blackhandrogue.setDefense(19);
-                blackhandrogue.setIntelligence(21);
-                blackhandrogue.setLevel(level);
-                blackhandrogue.setExperience(experience);
-                
-                blackhandrogue.setxCoordinate(xCoordinate);
-                blackhandrogue.setyCoordinate(yCoordinate);
-                blackhandrogue.setzCoordinate(zCoordinate);
-                blackhandrogue.setLocation(location);
-                blackhandrogue.setStatus(status);
-                //for now inventory will be empty we will implement this later
-                blackhandrogue.setInventory(null);
-                
-                blackhandrogue.setWeapon(weapon);
-                blackhandrogue.setTorso(torso);
-                blackhandrogue.setHead(head);
-                blackhandrogue.setPants(pants);
-                blackhandrogue.setShoes(shoes);
-                className = blackhandrogue;
-                break;
-            //in case the file did not read the class properly it will terminate application
-            default:
-                System.out.println("Error invalid class or did not read data properly. Contact admin.");
-                System.exit(0);
-                
-        }
-    }
+    
+    
     
     
     

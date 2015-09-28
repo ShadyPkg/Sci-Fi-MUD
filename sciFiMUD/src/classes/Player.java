@@ -6,6 +6,7 @@
 package classes;
 
 import Skills.Basic;
+import java.util.ArrayList;
 import rooms.CentralHub;
 import rooms.Factory;
 import rooms.Room;
@@ -50,8 +51,11 @@ public class Player implements Basic{
     //name of the class such as Cyborg, Time Traveller, etc
     private String className;
     private String status;
-    //for now a player can have a max of 100 items in his inventory
-    private Object[] inventory = new Object[100];
+   
+    //dyanmic size for players inventory so it can hold as much items as memory can hold
+    //or until the player is carrying the max weight
+    //max weight needs to be implemented to prevent abuse of infinite items
+    private ArrayList<Object> inventory = new ArrayList();
     
     //players equipment
     private String weapon;
@@ -597,15 +601,15 @@ public class Player implements Basic{
     /**
      * @return the inventory
      */
-    public Object[] getInventory() {
+    public ArrayList<Object> getInventory() {
         return inventory;
     }
 
     /**
-     * @param inventory the inventory to set
+     * @param playerInventory
      */
-    public void setInventory(Object[] inventory) {
-        this.inventory = inventory;
+    public void setInventory(ArrayList<Object> playerInventory) {
+        this.inventory = playerInventory;
     }
 
    
