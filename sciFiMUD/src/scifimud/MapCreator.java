@@ -27,6 +27,35 @@ import static scifimud.ConnectPlayer.wastelandsMap;
  */
 public class MapCreator {
     
+    //x, y, and z coordinates for all the maps
+    static final int ThePitX = 100;
+    static final int ThePitY = 120;
+    static final int ThePitZ = 5;
+    
+    static final int CentralHubX = 50;
+    static final int CentralHubY = 200;
+    static final int CentralHubZ = 3;
+    
+    static final int FactoryX = 150;
+    static final int FactoryY = 80;
+    static final int FactoryZ = 40;
+    
+    static final int SewersX = 200;
+    static final int SewersY = 230;
+    static final int SewersZ = 10;
+    
+    static final int TrainStationX = 200;
+    static final int TrainStationY = 10;
+    static final int TrainStationZ = 10;
+    
+    static final int WastelandsX = 300;
+    static final int WastelandsY = 350;
+    static final int WastelandsZ = 20;
+    
+    static final int SecretX = 5;
+    static final int SecretY = 5;
+    static final int SecretZ = 5;
+    
     public static void initializeMap(String location){
         
         int i;
@@ -38,11 +67,11 @@ public class MapCreator {
         
         switch(location){
             case "The Pit":
-                mainMap = new ThePit[100][100][5];
+                mainMap = new ThePit[ThePitX][ThePitY][ThePitZ];
                 className.setArea(mainMap);
-                for(i=0; i<100; i++){
-                    for(j=0; j<100; j++){
-                        for(k=0; k<5; k++){
+                for(i=0; i<ThePitX; i++){
+                    for(j=0; j<ThePitY; j++){
+                        for(k=0; k<ThePitZ; k++){
                             mainMap[i][j][k] = new ThePit("The Pit", "You look in horror as dead bodies lay everywhere. Something horrific must have happened.", (100*i)+(10*j)+k, i, j, k );
                             
                         }
@@ -53,12 +82,12 @@ public class MapCreator {
                 
                 break;
             case "Central Hub":
-                hubMap = new CentralHub[50][200][3];       
+                hubMap = new CentralHub[CentralHubX][CentralHubY][CentralHubZ];       
                 className.setArea(hubMap);
                 
-                for(i=0; i<50; i++){
-                    for(j=0; j<200; j++){
-                        for(k=0; k<3; k++){
+                for(i=0; i<CentralHubX; i++){
+                    for(j=0; j<CentralHubY; j++){
+                        for(k=0; k<CentralHubZ; k++){
                             hubMap[i][j][k] = new CentralHub();
                             
                         }
@@ -69,12 +98,12 @@ public class MapCreator {
                 break;
                 
             case "Factory":
-                factoryMap = new Factory[150][80][4];
+                factoryMap = new Factory[FactoryX][FactoryY][FactoryZ];
                 className.setArea(factoryMap);
                 
-                for(i=0; i<150; i++){
-                    for(j=0; j<80; j++){
-                        for(k=0; k<4; k++){
+                for(i=0; i<FactoryX; i++){
+                    for(j=0; j<FactoryY; j++){
+                        for(k=0; k<FactoryZ; k++){
                             factoryMap[i][j][k] = new Factory();
                             
                         }
@@ -85,12 +114,12 @@ public class MapCreator {
                 break;
                 
             case "Sewers":
-                sewerMap = new Sewers[200][200][10];
+                sewerMap = new Sewers[SewersX][SewersY][SewersZ];
                 className.setArea(sewerMap);
                 
-                for(i=0; i<200; i++){
-                    for(j=0; j<200; j++){
-                        for(k=0; k<10; k++){
+                for(i=0; i<SewersX; i++){
+                    for(j=0; j<SewersY; j++){
+                        for(k=0; k<SewersZ; k++){
                             sewerMap[i][j][k] = new Sewers();
                             
                         }
@@ -101,12 +130,12 @@ public class MapCreator {
                 break;
                 
             case "TrainStation":
-                trainMap = new TrainStation[200][10][1];
+                trainMap = new TrainStation[TrainStationX][TrainStationY][TrainStationZ];
                 className.setArea(trainMap);
                 
-                for(i=0; i<200; i++){
-                    for(j=0; j<10; j++){
-                        for(k=0; k<1; k++){
+                for(i=0; i<TrainStationX; i++){
+                    for(j=0; j<TrainStationY; j++){
+                        for(k=0; k<TrainStationZ; k++){
                             trainMap[i][j][k] = new TrainStation();
                             
                         }
@@ -115,12 +144,12 @@ public class MapCreator {
                 }
                 System.out.println("An old underground train station still remains here.");
             case "Wastelands":
-                wastelandsMap = new Wastelands[300][300][20];
+                wastelandsMap = new Wastelands[WastelandsX][WastelandsY][WastelandsZ];
                 className.setArea(wastelandsMap);
                 
-                for(i=0; i<300; i++){
-                    for(j=0; j<300; j++){
-                        for(k=0; k<20; k++){
+                for(i=0; i<WastelandsX; i++){
+                    for(j=0; j<WastelandsY; j++){
+                        for(k=0; k<WastelandsZ; k++){
                             wastelandsMap[i][j][k] = new Wastelands();
                             
                         }
@@ -131,12 +160,12 @@ public class MapCreator {
                 break;
                 
             case "Secret":
-                secretMap = new Secret[5][5][5];
+                secretMap = new Secret[SecretX][SecretX][SecretX];
                 className.setArea(secretMap);
                 
-                for(i=0; i<5; i++){
-                    for(j=0; j<5; j++){
-                        for(k=0; k<5; k++){
+                for(i=0; i<SecretX; i++){
+                    for(j=0; j<SecretY; j++){
+                        for(k=0; k<SecretZ; k++){
                             secretMap[i][j][k] = new Secret();
                         }
                     }

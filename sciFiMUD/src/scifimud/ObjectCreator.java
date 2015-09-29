@@ -5,12 +5,20 @@
  */
 package scifimud;
 
-import java.io.BufferedReader;
+import Equipment.Artifact;
+import Equipment.Drink;
+import Equipment.Food;
+import Equipment.Head;
+import Equipment.Pants;
+import Equipment.Shoes;
+import Equipment.Torso;
+import Equipment.Weapons;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 /**
  *
@@ -41,36 +49,35 @@ public class ObjectCreator {
     public static ArrayList<String> listofWeapons = new ArrayList<>();
     
     //inventory is a string read from file and it parses that string to create all the objects and places it in players inventory
-    public static void createInventory(String inventory) throws IOException{
+    public static ArrayList<Object> createInventory(String inventory, ArrayList<Object> playerInventory) throws IOException{
         
         //if the inventory is empty then we set it to null
         if(inventory.equals("empty")){
+            playerInventory = null;
             
         }
         else{
             String[] newInventory  = inventory.split(", ");
             int i;
             for(i=0; i<newInventory.length; i++){
-                if(searchInventoryDatabase(newInventory[i], "drinks", TOTAL_DRINKS, listofDrinks)  
-                   || searchInventoryDatabase(newInventory[i], "food", TOTAL_FOOD, listofFood)
-                   || searchInventoryDatabase(newInventory[i], "head", TOTAL_HEAD, listofHead)     
-                   || searchInventoryDatabase(newInventory[i], "objects", TOTAL_OBJECTS, listofFood)
-                   || searchInventoryDatabase(newInventory[i], "pants", TOTAL_PANTS, listofPants)
-                   || searchInventoryDatabase(newInventory[i], "shoes", TOTAL_SHOES, listofShoes)
-                   || searchInventoryDatabase(newInventory[i], "torso", TOTAL_TORSO, listofTorso)
-                   || searchInventoryDatabase(newInventory[i], "weapons", TOTAL_WEAPONS, listofWeapons)
-                        ){
-                    //this print statement is used for debugging purposes. This will be removed later on to prevent login spam.
-                    System.out.println(newInventory[i] + " was sucessfully found!");
+                playerInventory = searchInventoryDatabase(newInventory[i], "drinks", TOTAL_DRINKS, listofDrinks, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "food", TOTAL_FOOD, listofFood, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "head", TOTAL_HEAD, listofHead, playerInventory);   
+                playerInventory = searchInventoryDatabase(newInventory[i], "artifacts", TOTAL_OBJECTS, listofFood, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "pants", TOTAL_PANTS, listofPants, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "shoes", TOTAL_SHOES, listofShoes, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "torso", TOTAL_TORSO, listofTorso, playerInventory);
+                playerInventory = searchInventoryDatabase(newInventory[i], "weapons", TOTAL_WEAPONS, listofWeapons, playerInventory);
+                
+                    
                 }
-                else{
-                    System.out.println("Failed to find " + newInventory[i]);
-                }
+                
             }
+        return playerInventory;
             
-        }
-        
     }
+        
+    
     //takes all objects in inventory and returns a string of all the objects.
     public static String saveInventory(ArrayList<Object> inventory){
         int i;
@@ -93,101 +100,281 @@ public class ObjectCreator {
     //else it returns false.All the textfiles will be alphabetically sorted based on 
     //the name of the object so a binary search can be implemented for log n run time.
     // alphabetizer.flap.tv/ is the website that can sort a list in alphebetical order based on each line
-    public static boolean searchInventoryDatabase(String name, String fileName, int total, ArrayList<String> arrayList) throws FileNotFoundException, IOException {
+    public static ArrayList<Object> searchInventoryDatabase(String name, String fileName, int total, ArrayList<String> arrayList, ArrayList<Object> playerInventory) throws FileNotFoundException, IOException {
         
-        try(BufferedReader br = new BufferedReader(new FileReader("src/Equipment/" + fileName + ".txt"))){
-            int i;
         
-            int low=0;
-            int high = total-1;
-            int mid;
+
+        int low=0;
+        int high = total-1;
+        int mid;
 
 
-            while(low<= high){
+        while(low<= high){
 
-                mid=(high+low)/2;
+            mid=(high+low)/2;
 
-                //if a partial match is found return the word
-                if(arrayList.get(mid).startsWith(name)){
-                    switch(fileName){
-                        case "drinks":
-                            createDrink(arrayList.get(mid));
-                            break;
-                        case "food":
-                            createFood(arrayList.get(mid));
-                            break;
-                        case "head":
-                            createHead(arrayList.get(mid));
-                            break;
-                        case "objects":
-                            createObject(arrayList.get(mid));
-                            break;
-                        case "pants":
-                            createPants(arrayList.get(mid));
-                            break;
-                        case "shoes":
-                            createShoes(arrayList.get(mid));
-                            break;
-                        case "torso":
-                            createTorso(arrayList.get(mid));
-                            break;
-                        case "weapons":
-                            createWeapon(arrayList.get(mid));
-                            break;
-                        default:
-                            System.out.println("Error invalid equipment category. Please contact admin.");
-                            break;
-                    }
-                    return true;
+            //if a partial match is found return the word
+            if(arrayList.get(mid).startsWith(name)){
+                switch(fileName){
+                    case "drinks":
+                        playerInventory.add(createDrink(arrayList.get(mid)));
+                        break;
+                    case "food":
+                        playerInventory.add(createFood(arrayList.get(mid)));
+                        break;
+                    case "head":
+                        playerInventory.add(createHead(arrayList.get(mid)));
+                        break;
+                    case "objects":
+                        playerInventory.add(createArtifact(arrayList.get(mid)));
+                        break;
+                    case "pants":
+                        playerInventory.add(createPants(arrayList.get(mid)));
+                        break;
+                    case "shoes":
+                        playerInventory.add(createShoes(arrayList.get(mid)));
+                        break;
+                    case "torso":
+                        playerInventory.add(createTorso(arrayList.get(mid)));
+                        break;
+                    case "weapons":
+                        playerInventory.add(createWeapon(arrayList.get(mid)));
+                        break;
+                    default:
+                        System.out.println("Error invalid equipment category. Please contact admin.");
+                        break;
                 }
-                //if the word being searched comes before the word in the dictionary
-                //then the you want to search an earlier word
-                if(name.compareTo((String) arrayList.get(mid))<0){
-                    high=mid-1;
-                }
-                //if the word being searched comes after the word in the dictionary 
-                //then you wan tto search for a later word
-                else if(name.compareTo((String) arrayList.get(mid))>0){
-                    low=mid+1;
-                }
-           
+                
             }
- 
-                  
+            //if the word being searched comes before the word in the dictionary
+            //then the you want to search an earlier word
+            if(name.compareTo((String) arrayList.get(mid))<0){
+                high=mid-1;
+            }
+            //if the word being searched comes after the word in the dictionary 
+            //then you wan tto search for a later word
+            else if(name.compareTo((String) arrayList.get(mid))>0){
+                low=mid+1;
+            }
+
         }
-        //if reached here that means no match has been found
-        return false;
+        return playerInventory;
+        
     }
     //these functions all create objects/items/weapons/equipment based on the String in one of the files
-    //these strings need to be parsed
-    public static void createDrink(String drink){
+    //these strings need to be parsed. The item/object is then returned
+    public static Object createDrink(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Drink drink = new Drink();
+        int i = 0;
+        drink.setName(newInventory[i]);
+        i++;
+        drink.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setIntelligence(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setDuration(Integer.parseInt(newInventory[i]));
+        i++;
+        drink.setSpecialEffects(newInventory[i]);
         
+        System.out.println(drink.getName() + " was successfully created!");
+                
+        return drink;
     }
-    public static void createFood(String food){
+    public static Object createFood(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Food food = new Food();
+        int i = 0;
+        food.setName(newInventory[i]);
+        i++;
+        food.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setIntelligence(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setDuration(Integer.parseInt(newInventory[i]));
+        i++;
+        food.setSpecialEffects(newInventory[i]);
         
+        System.out.println(food.getName() + " was successfully created!");
+        
+        return food;
     }
     //creates an object or item such as a potion or artifact
-    public static void createObject(String object){
+    public static Object createArtifact(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Artifact artifact = new Artifact();
+        int i = 0;
+        artifact.setName(newInventory[i]);
+        i++;
+        artifact.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setIntelligence(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setDuration(Integer.parseInt(newInventory[i]));
+        i++;
+        artifact.setSpecialEffects(newInventory[i]);
         
+        System.out.println(artifact.getName() + " was successfully created!");
+        
+        return artifact;
     }
     //this is a function that is called to create a weapon
-    public static void createWeapon(String weapon){
+    public static Object createWeapon(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Weapons weapon = new Weapons();
+        int i = 0;
+        weapon.setName(newInventory[i]);
+        i++;
+        weapon.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        weapon.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        weapon.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        weapon.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        weapon.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        weapon.setIntelligence(Integer.parseInt(newInventory[i]));    
+        i++;
+        weapon.setSpecialEffect(newInventory[i]);
+        i++;
+        weapon.setType(newInventory[i]);
         
+        System.out.println(weapon.getName() + " was successfully created!");
+        
+        return weapon;
     }
     //creates a torso object that a player can wear
-    public static void createTorso(String torso){
+    public static Object createTorso(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Torso torso = new Torso();
+        int i = 0;
+        torso.setName(newInventory[i]);
+        i++;
+        torso.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        torso.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        torso.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        torso.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        torso.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        torso.setIntelligence(Integer.parseInt(newInventory[i]));    
+        i++;
+        torso.setSpecialEffect(newInventory[i]);
+        i++;
+        torso.setType(newInventory[i]);
         
+        System.out.println(torso.getName() + " was successfully created!");
+        
+        return torso;
     }
     //creates a head object that a player can wear
-    public static void createHead(String head){
+    public static Object createHead(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Head head = new Head();
+        int i = 0;
+        head.setName(newInventory[i]);
+        i++;
+        head.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        head.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        head.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        head.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        head.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        head.setIntelligence(Integer.parseInt(newInventory[i]));    
+        i++;
+        head.setSpecialEffect(newInventory[i]);
+        i++;
+        head.setType(newInventory[i]);
         
+        System.out.println(head.getName() + " was successfully created!");
+        
+        return head;
     }
     //creates a shoe object that a player can wear
-    public static void createShoes(String shoes){
+    public static Object createShoes(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Shoes shoes = new Shoes();
+        int i = 0;
+        shoes.setName(newInventory[i]);
+        i++;
+        shoes.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        shoes.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        shoes.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        shoes.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        shoes.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        shoes.setIntelligence(Integer.parseInt(newInventory[i]));    
+        i++;
+        shoes.setSpecialEffect(newInventory[i]);
+        i++;
+        shoes.setType(newInventory[i]);
         
+        System.out.println(shoes.getName() + " was successfully created!");
+        
+        return shoes;
     }
-    public static void createPants(String pants){
+    public static Object createPants(String inventory){
+        String[] newInventory  = inventory.split(", ");
+        Pants pants = new Pants();
+        int i = 0;
+        pants.setName(newInventory[i]);
+        i++;
+        pants.setHealth(Integer.parseInt(newInventory[i]));
+        i++;
+        pants.setEnergy(Integer.parseInt(newInventory[i]));
+        i++;
+        pants.setSpeed(Integer.parseInt(newInventory[i]));
+        i++;
+        pants.setAttack(Integer.parseInt(newInventory[i]));
+        i++;
+        pants.setDefense(Integer.parseInt(newInventory[i]));
+        i++;
+        pants.setIntelligence(Integer.parseInt(newInventory[i]));    
+        i++;
+        pants.setSpecialEffect(newInventory[i]);
+        i++;
+        pants.setType(newInventory[i]);
         
+        System.out.println(pants.getName() + " was successfully created!");
+        
+        return pants;
     }
     
     //this function can be used to reach each text file in equipment package

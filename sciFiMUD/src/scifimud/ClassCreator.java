@@ -9,6 +9,7 @@ import classes.Player;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import static scifimud.ConnectPlayer.blackhandrogue;
 import static scifimud.ConnectPlayer.cybersecurityarchitect;
@@ -83,13 +84,17 @@ public class ClassCreator {
         ObjectCreator.readEquipmentFile("drinks", ObjectCreator.TOTAL_DRINKS, ObjectCreator.listofDrinks);
         ObjectCreator.readEquipmentFile("food", ObjectCreator.TOTAL_FOOD, ObjectCreator.listofFood);
         ObjectCreator.readEquipmentFile("head", ObjectCreator.TOTAL_HEAD, ObjectCreator.listofHead);
-        ObjectCreator.readEquipmentFile("objects", ObjectCreator.TOTAL_OBJECTS, ObjectCreator.listofObjects);
+        ObjectCreator.readEquipmentFile("artifacts", ObjectCreator.TOTAL_OBJECTS, ObjectCreator.listofObjects);
         ObjectCreator.readEquipmentFile("pants", ObjectCreator.TOTAL_PANTS, ObjectCreator.listofPants);
         ObjectCreator.readEquipmentFile("shoes", ObjectCreator.TOTAL_SHOES, ObjectCreator.listofShoes);
         ObjectCreator.readEquipmentFile("torso", ObjectCreator.TOTAL_TORSO, ObjectCreator.listofTorso);
         ObjectCreator.readEquipmentFile("weapons", ObjectCreator.TOTAL_WEAPONS, ObjectCreator.listofWeapons);
+        
+        //temporary inventory
+        ArrayList<Object> tempInventory = new ArrayList<>();
+        //creating players inventory and the objects in the inventory;
         //creating players inventory and the objects in the inventory
-        ObjectCreator.createInventory(inventory);
+        tempInventory = ObjectCreator.createInventory(inventory, tempInventory);
         
         //creates new player associated with his/her class
         switch(classname){
@@ -108,7 +113,7 @@ public class ClassCreator {
                 cyborg.setBitcoins(bitcoins);
                 cyborg.setStatus(status);
                 //for now inventory will be empty we will implement this later
-                cyborg.setInventory(null);
+                cyborg.setInventory(tempInventory);
 
                 cyborg.setHealth(100 + (level*30));
                 cyborg.setEnergy(50);
@@ -147,7 +152,7 @@ public class ClassCreator {
                 nanomedic.setLocation(location);
                 nanomedic.setStatus(status);
                 //for now inventory will be empty we will implement this later
-                nanomedic.setInventory(null);
+                nanomedic.setInventory(tempInventory);
                 
                 nanomedic.setWeapon(weapon);
                 nanomedic.setTorso(torso);
@@ -179,7 +184,7 @@ public class ClassCreator {
                 cybersecurityarchitect.setLocation(location);
                 cybersecurityarchitect.setStatus(status);
                 //for now inventory will be empty we will implement this later
-                cybersecurityarchitect.setInventory(null);
+                cybersecurityarchitect.setInventory(tempInventory);
                 
                 cybersecurityarchitect.setWeapon(weapon);
                 cybersecurityarchitect.setTorso(torso);
@@ -212,7 +217,7 @@ public class ClassCreator {
                 timetraveler.setLocation(location);
                 timetraveler.setStatus(status);
                 
-                timetraveler.setInventory(null);
+                timetraveler.setInventory(tempInventory);
                 
                 timetraveler.setWeapon(weapon);
                 timetraveler.setTorso(torso);
@@ -244,7 +249,7 @@ public class ClassCreator {
                 blackhandrogue.setLocation(location);
                 blackhandrogue.setStatus(status);
                 //for now inventory will be empty we will implement this later
-                blackhandrogue.setInventory(null);
+                blackhandrogue.setInventory(tempInventory);
                 
                 blackhandrogue.setWeapon(weapon);
                 blackhandrogue.setTorso(torso);

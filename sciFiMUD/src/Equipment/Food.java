@@ -12,6 +12,7 @@ package Equipment;
 public class Food {
     
 //foods can give temporary stat boosts to players for a short time duration
+    private String name;
     private int health;
     private int energy;
     private int speed;
@@ -133,5 +134,19 @@ public class Food {
      */
     public void setSpecialEffects(String specialEffects) {
         this.specialEffects = specialEffects;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,2 +1,2 @@
-Dash boots, 0, 0, 0, 3, 1, 0, Shoes, None
-Lava boots, 0, 0, 0, 1, 2, 0, Shoes, Fire
+Dash Boots, 0, 0, 0, 3, 1, 0, Shoes, None
+Lava Boots, 0, 0, 0, 1, 2, 0, Shoes, Fire

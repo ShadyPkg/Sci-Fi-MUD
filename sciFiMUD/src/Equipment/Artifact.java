@@ -9,20 +9,33 @@ package Equipment;
  *
  * @author root
  */
-public class Shoes {
-    
-    //what the equipment is called, this will also be used to save and read from file
-    //the inventory of a player
+public class Artifact {
     private String name;
-    //wearing certain equpiment boost players stats
     private int health;
     private int energy;
-    private int attack;
     private int speed;
+    private int attack;
     private int defense;
     private int intelligence;
-    private String specialEffect;
-    private String type;
+    //duration will be in milliseconds or seconds. implementation is still being discussed
+    private int duration;
+    //some foods can make players sick or weak
+    private String specialEffects;
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /**
      * @return the health
      */
@@ -52,20 +65,6 @@ public class Shoes {
     }
 
     /**
-     * @return the attack
-     */
-    public int getAttack() {
-        return attack;
-    }
-
-    /**
-     * @param attack the attack to set
-     */
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    /**
      * @return the speed
      */
     public int getSpeed() {
@@ -77,6 +76,20 @@ public class Shoes {
      */
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    /**
+     * @return the attack
+     */
+    public int getAttack() {
+        return attack;
+    }
+
+    /**
+     * @param attack the attack to set
+     */
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     /**
@@ -108,44 +121,30 @@ public class Shoes {
     }
 
     /**
-     * @return the name
+     * @return the duration
      */
-    public String getName() {
-        return name;
+    public int getDuration() {
+        return duration;
     }
 
     /**
-     * @param name the name to set
+     * @param duration the duration to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     /**
-     * @return the specialEffect
+     * @return the specialEffects
      */
-    public String getSpecialEffect() {
-        return specialEffect;
+    public String getSpecialEffects() {
+        return specialEffects;
     }
 
     /**
-     * @param specialEffect the specialEffect to set
+     * @param specialEffects the specialEffects to set
      */
-    public void setSpecialEffect(String specialEffect) {
-        this.specialEffect = specialEffect;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
+    public void setSpecialEffects(String specialEffects) {
+        this.specialEffects = specialEffects;
     }
 }
