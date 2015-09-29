@@ -5,6 +5,7 @@
 package scifimud;
 
 
+import Equipment.Item;
 import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
@@ -81,6 +82,7 @@ public class ConnectPlayer {
         String newCommand;
         //use to break a command if a certain target or thing needs to be parsed after a particular keyword
         String target;
+        Item item = new Item();
         
         while(true){
             if(gameOver == 1){
@@ -104,6 +106,30 @@ public class ConnectPlayer {
                     break;
                     
                 case "drop":
+                    if(command.length() <= 4){
+                        System.out.println("Drop what?");
+                        break;
+                    }
+                    target = command.substring(5);
+                   
+                    
+                    item = className.searchInventory(target, className.getInventory());
+                    if(item!=null){
+                        //removes item from player inventory
+                        className.setInventory(className.removeItem(target, className.getInventory()));
+                        //adds the item to the room
+                        className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).addItem(item);
+                        System.out.println("You successully drop a(n) " + item.getName());
+                    }
+                    else{
+                        System.out.println("Drop what?");
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
                     break;
                     
                 case "east":
@@ -122,12 +148,28 @@ public class ConnectPlayer {
                         break;
                     }
                     target = command.substring(8);
+                    
+                    item = className.searchInventory(target, className.getInventory());
+                    if(item!=null){
+                        item.displayProperties();
+                    }
+                    else{
+                        System.out.println("Examine what?");
+                    }
+                    
                     break;
                     
                 case "here":
                     break;
                     
                 case "inventory":
+                    String inventory = ObjectCreator.getInventory(className.getInventory());
+                    String[] newInventory  = inventory.split(", ");
+                    int i;
+                    System.out.println("Inventory : ");
+                    for(i=0 ; i<newInventory.length; i++){
+                        System.out.println(newInventory[i]);
+                    }
                     break;
                 case "kill":
                     if(command.length()<=4){
@@ -248,12 +290,17 @@ public class ConnectPlayer {
         int mid;
         
         
+        
         while(low<= high){
             
             mid=(high+low)/2;
-            
             //if a partial match is found return the word
             if(listOfWords.get(mid).startsWith(word)){
+                
+                return listOfWords.get(mid);
+            }
+            //for cases like "examine chicken" or "say hi"
+            if(word.startsWith(listOfWords.get(mid))){
                 return listOfWords.get(mid);
             }
             //if the word being searched comes before the word in the dictionary
@@ -304,7 +351,7 @@ public class ConnectPlayer {
     
   
     //saves player data to a file
-    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Object> inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
      
          try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
             //name
@@ -328,7 +375,7 @@ public class ConnectPlayer {
             writer.println(status);
             //players inventory, all items are separated by a comma and will
             //use a strtok to break up the items
-            writer.println(ObjectCreator.saveInventory(inventory));
+            writer.println(ObjectCreator.getInventory(inventory));
             
             //players weapon equipment
             writer.println(weapon);
@@ -377,6 +424,8 @@ public class ConnectPlayer {
             }
         }
     }
+
+
     
     
     

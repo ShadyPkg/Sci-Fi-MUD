@@ -9,7 +9,7 @@ package Equipment;
  *
  * @author root
  */
-public class Drink {
+public class Drink extends Item{
     
     //drinks can give temporary stat boosts to players for a short time duration
     //or they give boost health or energy.
@@ -22,6 +22,8 @@ public class Drink {
     private int intelligence;
     //duration will be in milliseconds or seconds. implementation is still being discussed
     private int duration;
+    //time left before the effect of the drink wears out
+    private int timeLeft;
     //some drinks can make players drunk or ill
     private String specialEffects;
 
@@ -140,6 +142,7 @@ public class Drink {
     /**
      * @return the name
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -147,7 +150,43 @@ public class Drink {
     /**
      * @param name the name to set
      */
+    @Override
     public void setName(String name) {
         this.name = name;
     }
+    
+    @Override
+    public void displayProperties(){
+        System.out.println(getName());
+        System.out.println("Health : " + getHealth());
+        System.out.println("Energy : " + getHealth());
+        System.out.println("Speed  : " + getSpeed());
+        System.out.println("Attack : " + getAttack());
+        System.out.println("Defense : " + getHealth());
+        System.out.println("Intelligence : " + getIntelligence());
+        System.out.println("Duration : " + getDuration());
+        System.out.println("Special effects : " + getSpecialEffects());
+        
+    }
+
+    /**
+     * @return the timeLeft
+     */
+    public int getTimeLeft() {
+        return timeLeft;
+    }
+
+    /**
+     * @param timeLeft the timeLeft to set
+     */
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+    
+    //when the player sips the drink the time setTimeLeft() will set the timer for the duration
+    //the player will then get the stats applied to him until the timer runs out.
+    public void sipDrink(){
+        
+    }
+    
 }

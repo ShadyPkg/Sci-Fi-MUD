@@ -5,6 +5,7 @@
  */
 package classes;
 
+import Equipment.Item;
 import Skills.Basic;
 import java.util.ArrayList;
 import rooms.CentralHub;
@@ -55,7 +56,7 @@ public class Player implements Basic{
     //dyanmic size for players inventory so it can hold as much items as memory can hold
     //or until the player is carrying the max weight
     //max weight needs to be implemented to prevent abuse of infinite items
-    private ArrayList<Object> inventory = new ArrayList();
+    private ArrayList<Item> inventory = new ArrayList();
     
     //players equipment
     private String weapon;
@@ -601,17 +602,44 @@ public class Player implements Basic{
     /**
      * @return the inventory
      */
-    public ArrayList<Object> getInventory() {
+    public ArrayList<Item> getInventory() {
         return inventory;
     }
 
     /**
      * @param playerInventory
      */
-    public void setInventory(ArrayList<Object> playerInventory) {
+    public void setInventory(ArrayList<Item> playerInventory) {
         this.inventory = playerInventory;
     }
-
-   
+    //searches the players inventory given a String of the item name
+    //returns the item that is being searched
+    public Item searchInventory(String item, ArrayList<Item> inventory){
+        int i;
+        for(i=0; i<inventory.size(); i++){
+            if(item.equalsIgnoreCase(inventory.get(i).getName())){
+                return inventory.get(i);
+            }
+        }
+        return null;
+    }
+    
+    
+    //removes item from inventory and returns the inventory with one less item
+    //if a player has multiple copies of an item then all items of this name will be removed
+    public ArrayList<Item> removeItem(String item, ArrayList<Item> inventory){
+        int i;
+        int removed = 0;
+        for(i=0; i<inventory.size(); i++){
+            if(item.equalsIgnoreCase(inventory.get(i).getName())){
+                inventory.remove(i);
+                removed = 1;
+            } 
+        }
+        if(removed == 0){
+            System.out.println("You are not carrying a " + item);
+        }
+        return inventory;
+    }
     
 }

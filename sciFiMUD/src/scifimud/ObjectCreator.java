@@ -9,6 +9,7 @@ import Equipment.Artifact;
 import Equipment.Drink;
 import Equipment.Food;
 import Equipment.Head;
+import Equipment.Item;
 import Equipment.Pants;
 import Equipment.Shoes;
 import Equipment.Torso;
@@ -49,7 +50,7 @@ public class ObjectCreator {
     public static ArrayList<String> listofWeapons = new ArrayList<>();
     
     //inventory is a string read from file and it parses that string to create all the objects and places it in players inventory
-    public static ArrayList<Object> createInventory(String inventory, ArrayList<Object> playerInventory) throws IOException{
+    public static ArrayList<Item> createInventory(String inventory, ArrayList<Item> playerInventory) throws IOException{
         
         //if the inventory is empty then we set it to null
         if(inventory.equals("empty")){
@@ -79,15 +80,15 @@ public class ObjectCreator {
         
     
     //takes all objects in inventory and returns a string of all the objects.
-    public static String saveInventory(ArrayList<Object> inventory){
+    public static  String getInventory(ArrayList<Item> inventory){
         int i;
         String newInventory = "";
         if(inventory!=null){
             
-            for(i=0; i<inventory.size()-1; i++){
-                newInventory = inventory.get(i) + ", ";
+            for(i=0; i<inventory.size(); i++){
+                newInventory = newInventory + inventory.get(i).getName() + ", ";
             }
-            newInventory = newInventory + inventory.get(i);
+            
             return newInventory;
         }
         //if the inventory is null this will be returned
@@ -100,7 +101,7 @@ public class ObjectCreator {
     //else it returns false.All the textfiles will be alphabetically sorted based on 
     //the name of the object so a binary search can be implemented for log n run time.
     // alphabetizer.flap.tv/ is the website that can sort a list in alphebetical order based on each line
-    public static ArrayList<Object> searchInventoryDatabase(String name, String fileName, int total, ArrayList<String> arrayList, ArrayList<Object> playerInventory) throws FileNotFoundException, IOException {
+    public static ArrayList<Item> searchInventoryDatabase(String name, String fileName, int total, ArrayList<String> arrayList, ArrayList<Item> playerInventory) throws FileNotFoundException, IOException {
         
         
 
@@ -112,7 +113,6 @@ public class ObjectCreator {
         while(low<= high){
 
             mid=(high+low)/2;
-
             //if a partial match is found return the word
             if(arrayList.get(mid).startsWith(name)){
                 switch(fileName){
@@ -150,11 +150,13 @@ public class ObjectCreator {
             //then the you want to search an earlier word
             if(name.compareTo((String) arrayList.get(mid))<0){
                 high=mid-1;
+                
             }
             //if the word being searched comes after the word in the dictionary 
             //then you wan tto search for a later word
             else if(name.compareTo((String) arrayList.get(mid))>0){
                 low=mid+1;
+                
             }
 
         }
@@ -163,7 +165,7 @@ public class ObjectCreator {
     }
     //these functions all create objects/items/weapons/equipment based on the String in one of the files
     //these strings need to be parsed. The item/object is then returned
-    public static Object createDrink(String inventory){
+    public static Item createDrink(String inventory){
         String[] newInventory  = inventory.split(", ");
         Drink drink = new Drink();
         int i = 0;
@@ -189,7 +191,7 @@ public class ObjectCreator {
                 
         return drink;
     }
-    public static Object createFood(String inventory){
+    public static Item createFood(String inventory){
         String[] newInventory  = inventory.split(", ");
         Food food = new Food();
         int i = 0;
@@ -216,7 +218,7 @@ public class ObjectCreator {
         return food;
     }
     //creates an object or item such as a potion or artifact
-    public static Object createArtifact(String inventory){
+    public static Item createArtifact(String inventory){
         String[] newInventory  = inventory.split(", ");
         Artifact artifact = new Artifact();
         int i = 0;
@@ -234,8 +236,6 @@ public class ObjectCreator {
         i++;
         artifact.setIntelligence(Integer.parseInt(newInventory[i]));
         i++;
-        artifact.setDuration(Integer.parseInt(newInventory[i]));
-        i++;
         artifact.setSpecialEffects(newInventory[i]);
         
         System.out.println(artifact.getName() + " was successfully created!");
@@ -243,7 +243,7 @@ public class ObjectCreator {
         return artifact;
     }
     //this is a function that is called to create a weapon
-    public static Object createWeapon(String inventory){
+    public static Item createWeapon(String inventory){
         String[] newInventory  = inventory.split(", ");
         Weapons weapon = new Weapons();
         int i = 0;
@@ -270,7 +270,7 @@ public class ObjectCreator {
         return weapon;
     }
     //creates a torso object that a player can wear
-    public static Object createTorso(String inventory){
+    public static Item createTorso(String inventory){
         String[] newInventory  = inventory.split(", ");
         Torso torso = new Torso();
         int i = 0;
@@ -297,7 +297,7 @@ public class ObjectCreator {
         return torso;
     }
     //creates a head object that a player can wear
-    public static Object createHead(String inventory){
+    public static Item createHead(String inventory){
         String[] newInventory  = inventory.split(", ");
         Head head = new Head();
         int i = 0;
@@ -324,7 +324,7 @@ public class ObjectCreator {
         return head;
     }
     //creates a shoe object that a player can wear
-    public static Object createShoes(String inventory){
+    public static Item createShoes(String inventory){
         String[] newInventory  = inventory.split(", ");
         Shoes shoes = new Shoes();
         int i = 0;
@@ -350,7 +350,7 @@ public class ObjectCreator {
         
         return shoes;
     }
-    public static Object createPants(String inventory){
+    public static Item createPants(String inventory){
         String[] newInventory  = inventory.split(", ");
         Pants pants = new Pants();
         int i = 0;
@@ -391,7 +391,7 @@ public class ObjectCreator {
             }
 
             for(i=0; i<total; i++){
-                current_word= br.next();
+                current_word= br.nextLine();
                 arrayList.set(i, current_word);
             }
             br.close();

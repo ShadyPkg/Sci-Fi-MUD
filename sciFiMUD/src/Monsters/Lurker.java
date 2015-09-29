@@ -9,6 +9,6 @@ package Monsters;
  *
  * @author root
  */
-public class Lurker {
+public class Lurker extends Monster{
     
 }

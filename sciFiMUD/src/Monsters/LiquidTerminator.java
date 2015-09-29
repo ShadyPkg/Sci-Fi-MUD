@@ -9,7 +9,7 @@ package Monsters;
  *
  * @author root
  */
-public class LiquidTerminator {
+public class LiquidTerminator extends Monster{
     
     private int health=40;
     private int energy=20;

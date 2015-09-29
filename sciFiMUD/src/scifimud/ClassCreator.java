@@ -5,6 +5,7 @@
  */
 package scifimud;
 
+import Equipment.Item;
 import classes.Player;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -91,7 +92,7 @@ public class ClassCreator {
         ObjectCreator.readEquipmentFile("weapons", ObjectCreator.TOTAL_WEAPONS, ObjectCreator.listofWeapons);
         
         //temporary inventory
-        ArrayList<Object> tempInventory = new ArrayList<>();
+        ArrayList<Item> tempInventory = new ArrayList<>();
         //creating players inventory and the objects in the inventory;
         //creating players inventory and the objects in the inventory
         tempInventory = ObjectCreator.createInventory(inventory, tempInventory);

@@ -5,6 +5,8 @@
  */
 package rooms;
 
+import Equipment.Item;
+
 /**
  *
  * @author root
@@ -267,6 +269,14 @@ public class Room {
      */
     public void setArea(String area) {
         this.area = area;
+    }
+
+    public Object getItems() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void addItem(Item searchInventory) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    

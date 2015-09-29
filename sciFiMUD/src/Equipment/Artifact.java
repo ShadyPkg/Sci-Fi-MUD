@@ -9,7 +9,7 @@ package Equipment;
  *
  * @author root
  */
-public class Artifact {
+public class Artifact extends Item{
     private String name;
     private int health;
     private int energy;
@@ -17,8 +17,7 @@ public class Artifact {
     private int attack;
     private int defense;
     private int intelligence;
-    //duration will be in milliseconds or seconds. implementation is still being discussed
-    private int duration;
+ 
     //some foods can make players sick or weak
     private String specialEffects;
 
@@ -120,19 +119,6 @@ public class Artifact {
         this.intelligence = intelligence;
     }
 
-    /**
-     * @return the duration
-     */
-    public int getDuration() {
-        return duration;
-    }
-
-    /**
-     * @param duration the duration to set
-     */
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
 
     /**
      * @return the specialEffects
@@ -147,4 +133,22 @@ public class Artifact {
     public void setSpecialEffects(String specialEffects) {
         this.specialEffects = specialEffects;
     }
+    
+    /**
+     *
+     */
+    @Override
+    public void displayProperties(){
+        System.out.println(getName());
+        System.out.println("Health : " + getHealth());
+        System.out.println("Energy : " + getHealth());
+        System.out.println("Speed  : " + getSpeed());
+        System.out.println("Attack : " + getAttack());
+        System.out.println("Defense : " + getHealth());
+        System.out.println("Intelligence : " + getIntelligence());
+        System.out.println("Special effects : " + getSpecialEffects());
+        
+    }
+
+    
 }

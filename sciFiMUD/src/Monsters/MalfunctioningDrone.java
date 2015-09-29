@@ -9,6 +9,6 @@ package Monsters;
  *
  * @author root
  */
-public class MalfunctioningDrone {
+public class MalfunctioningDrone extends Monster{
     
 }

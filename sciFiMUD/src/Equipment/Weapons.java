@@ -9,7 +9,7 @@ package Equipment;
  *
  * @author root
  */
-public class Weapons {
+public class Weapons extends Item{ 
    
     //what the equipment is called, this will also be used to save and read from file
     //the inventory of a player
@@ -152,5 +152,19 @@ public class Weapons {
      */
     public void setType(String type) {
         this.type = type;
+    }
+    
+    @Override
+    public void displayProperties(){
+        System.out.println(getName());
+        System.out.println("Health : " + getHealth());
+        System.out.println("Energy : " + getHealth());
+        System.out.println("Speed  : " + getSpeed());
+        System.out.println("Attack : " + getAttack());
+        System.out.println("Defense : " + getHealth());
+        System.out.println("Intelligence : " + getIntelligence());
+        System.out.println("Duration : " + getSpecialEffect());
+        System.out.println("Special effects : " + getType());
+        
     }
 }

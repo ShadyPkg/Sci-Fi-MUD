@@ -9,7 +9,7 @@ package Monsters;
  *
  * @author root
  */
-public class Infestor {
+public class Infestor extends Monster{
     
     private int health=40;
     private int energy=20;

@@ -10,7 +10,7 @@ package Monsters;
  *
  * @author jonc
  */
-public class CorruptAndroid {
+public class CorruptAndroid extends Monster{
     
     //The description when a player examines corruptAndriod
     private String description = "A tall robot like figure looms here.";

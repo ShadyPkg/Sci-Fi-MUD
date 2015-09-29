@@ -9,7 +9,7 @@ package Monsters;
  *
  * @author root
  */
-public class LavaRoach {
+public class LavaRoach extends Monster{
     
     private int health=40;
     private int energy=20;

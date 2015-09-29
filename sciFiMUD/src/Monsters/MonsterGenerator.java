@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author root
  */
-public class MonsterGenerator {
+public class MonsterGenerator extends Monster{
     //total number of monsters
     //every time a new monster is added to the database this number needs to change
     private final int TOTAL=8;

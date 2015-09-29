@@ -9,7 +9,7 @@ package Equipment;
  *
  * @author root
  */
-public class Food {
+public class Food extends Item{
     
 //foods can give temporary stat boosts to players for a short time duration
     private String name;
@@ -148,5 +148,19 @@ public class Food {
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public void displayProperties(){
+        System.out.println(getName());
+        System.out.println("Health : " + getHealth());
+        System.out.println("Energy : " + getHealth());
+        System.out.println("Speed  : " + getSpeed());
+        System.out.println("Attack : " + getAttack());
+        System.out.println("Defense : " + getHealth());
+        System.out.println("Intelligence : " + getIntelligence());
+        System.out.println("Duration : " + getDuration());
+        System.out.println("Special effects : " + getSpecialEffects());
+        
     }
 }

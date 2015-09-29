@@ -5,8 +5,11 @@
  */
 package rooms;
 
+import Equipment.Item;
 import Monsters.CorruptAndroid;
 import Monsters.Infestor;
+import Monsters.Monster;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -15,10 +18,9 @@ import java.util.Random;
  */
 public class ThePit extends Room{
     
-    //array of monsters that are in the room.
-    //For now there is going to be a max of 10 monsters per room and a max of 50 items.
-    private Object[] monster = new Object[10];
-    private Object[] items = new Object[50];
+    //need to implement max number of items so players can't jump drop infinite amount of items
+    private ArrayList<Monster> monster = new ArrayList();
+    private ArrayList<Item> items = new ArrayList();
     
     public ThePit(){
         
@@ -40,11 +42,13 @@ public class ThePit extends Room{
         switch(value){
             case 1:
                 CorruptAndroid android = new CorruptAndroid(xCoordinate, yCoordinate, zCoordinate);
-                getMonster()[number]=android;
+                //check to see if we have to add null first before adding the monster
+                //monster. add(null);
+                monster.add(android);
                 break;
             case 2:
                 Infestor infestor = new Infestor(xCoordinate, yCoordinate, zCoordinate);
-                getMonster()[number]=infestor;
+                monster.add(infestor);
                 break;
             default:
                 break;
@@ -58,15 +62,35 @@ public class ThePit extends Room{
     /**
      * @return the monster
      */
-    public Object[] getMonster() {
+    public ArrayList<Monster> getMonster() {
         return monster;
     }
 
     /**
-     * @param monster the monster to set
+     * @param thisMonster
      */
-    public void setMonster(Object[] monster) {
-        this.monster = monster;
+    public void setMonster(ArrayList<Monster> thisMonster) {
+        this.monster = thisMonster ;
+    }
+
+ 
+    /**
+     * @return the items
+     */
+    @Override
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
     
+    @Override
+    public void addItem(Item item){
+        items.add(item);
+    }
 }
