@@ -612,7 +612,7 @@ public class Player implements Basic{
     public void setInventory(ArrayList<Item> playerInventory) {
         this.inventory = playerInventory;
     }
-    //searches the players inventory given a String of the item name
+    //searches the players inventory or item in a room, given a String of the item name
     //returns the item that is being searched
     public Item searchInventory(String item, ArrayList<Item> inventory){
         int i;
@@ -640,6 +640,15 @@ public class Player implements Basic{
             System.out.println("You are not carrying a " + item);
         }
         return inventory;
+    }
+    
+    public ArrayList<Item> addItem(Item item){
+        getInventory().add(item);
+        return inventory;
+    }
+
+    public ArrayList<Item> addItem(String target, ArrayList<Item> inventory) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

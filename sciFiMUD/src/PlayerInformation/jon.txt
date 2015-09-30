@@ -4,10 +4,10 @@ Blackhand Rogue
 1
 0
 The Pit
-57 37 3
+58 37 3
 0
 Normal
-Dash Boots, Lava Boots, Chicken, Ice Blade
+Lava Boots, Chicken, Ice Blade, Dash Boots, 
 Nothing
 Nothing
 Nothing

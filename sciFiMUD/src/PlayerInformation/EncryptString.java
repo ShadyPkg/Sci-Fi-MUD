@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Joanthan Chin
 package PlayerInformation;
 
 import java.io.IOException;
@@ -18,7 +14,7 @@ import sun.misc.BASE64Encoder;
 
 /**
  *
- * @author root
+ * @author jonc
  */
 public class EncryptString {
     //seeds encryption value. This value will be stored on the sever side once

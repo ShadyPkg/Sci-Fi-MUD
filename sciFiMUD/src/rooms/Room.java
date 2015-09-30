@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Joanthan Chin
 package rooms;
 
 import Equipment.Item;
+import Monsters.Monster;
+import java.util.ArrayList;
 
 /**
  *
- * @author root
+ * @author jonc
  */
 //superclass
 public class Room {
@@ -271,7 +269,7 @@ public class Room {
         this.area = area;
     }
 
-    public Object getItems() {
+    public ArrayList<Item> getItems() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -279,5 +277,13 @@ public class Room {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public ArrayList<Monster> getMonsters() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setItems(ArrayList<Item> removeItem) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
    
 }

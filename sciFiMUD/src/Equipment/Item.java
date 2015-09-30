@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Joanthan Chin
 package Equipment;
 
 /**
  *
- * @author root
+ * @author jonc
  */
 //superclass that will be used as the parameter for the players arraylist inventory
 public class Item {

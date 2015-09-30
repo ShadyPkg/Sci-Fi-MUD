@@ -6,6 +6,7 @@ package scifimud;
 
 
 import Equipment.Item;
+import Monsters.Monster;
 import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
@@ -83,6 +84,8 @@ public class ConnectPlayer {
         //use to break a command if a certain target or thing needs to be parsed after a particular keyword
         String target;
         Item item = new Item();
+        //this variable is used in for loops within the switch statements below. Do not remove.
+        int i;
         
         while(true){
             if(gameOver == 1){
@@ -125,11 +128,6 @@ public class ConnectPlayer {
                         System.out.println("Drop what?");
                     }
                     
-                    
-                    
-                    
-                    
-                    
                     break;
                     
                 case "east":
@@ -160,12 +158,25 @@ public class ConnectPlayer {
                     break;
                     
                 case "here":
+                    //used to store the arraylist of all items in the room
+                    ArrayList<Item> tempInventory = new ArrayList();
+                    //used to store the arraylist of all monsters in the room
+                    ArrayList<Monster> tempMonsters = new ArrayList();
+                    
+                    tempInventory = className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems();
+                    for(i=0; i<tempInventory.size(); i++){
+                        System.out.println(tempInventory.get(i).getName());
+                    }
+                    tempMonsters = className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getMonsters();
+                    for(i=0; i<tempMonsters.size(); i++){
+                        System.out.println(tempMonsters.get(i).getName());
+                    }
                     break;
                     
                 case "inventory":
                     String inventory = ObjectCreator.getInventory(className.getInventory());
                     String[] newInventory  = inventory.split(", ");
-                    int i;
+                    
                     System.out.println("Inventory : ");
                     for(i=0 ; i<newInventory.length; i++){
                         System.out.println(newInventory[i]);
@@ -236,6 +247,20 @@ public class ConnectPlayer {
                     break;
                     
                 case "take":
+                    if(command.length() <= 4){
+                        System.out.println("Take what?");
+                        break;
+                    }
+                    target = command.substring(5);
+                    //uses the same function as when searching a player inventory but this passes in different paramters such as the items in the room instead of the items in the players inventory
+                    item =  className.searchInventory(target, className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems());
+                    if(item != null){
+                        //removes item from room if item is in the room
+                        className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).setItems(className.removeItem(target, className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems()));
+                        //adds item to inventory
+                        System.out.println("You take a " + target);
+                        className.setInventory(className.addItem(item));
+                    }
                     break;
                     
                 case "tell":
@@ -243,7 +268,7 @@ public class ConnectPlayer {
                         System.out.println("Tell whom?");
                         break;
                     }
-                    target = command.substring(4);
+                    target = command.substring(5);
                     break;
                     
                 case "up":
@@ -262,7 +287,7 @@ public class ConnectPlayer {
                         System.out.println("Yell what?");
                         break;
                     }
-                    target = command.substring(4);
+                    target = command.substring(5);
                     System.out.println("You yell " + target);
                     break;
                 case "health":
