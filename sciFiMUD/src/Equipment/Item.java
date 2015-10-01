@@ -9,7 +9,10 @@ package Equipment;
 public class Item {
     
     private String name;
-
+    //groups will be used to identify if an item is a weapon, torso, drink so the player can wear it on the correct 
+    //equipment slot
+    private String group;
+  
     /**
      * @return the name
      */
@@ -26,5 +29,19 @@ public class Item {
     
     public void displayProperties(){
         
+    }
+
+    /**
+     * @return the group
+     */
+    public String getGroup() {
+        return group;
+    }
+
+    /**
+     * @param group the group to set
+     */
+    public void setGroup(String group) {
+        this.group = group;
     }
 }

@@ -54,6 +54,13 @@ public interface Basic {
     void up();
     //allows a player to go down
     void down();
-    
+    //removes an item from equipment
+    void remove(String target);
+    //drops an item from players inventory
+    void drop(String target);
+    //takes an item from the room and places it in inventory
+    void take(String target);
+    //takes an item from inventory and wears it on equipment
+    void wear(String target);
     
 }

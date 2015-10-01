@@ -24,9 +24,7 @@ public class Pants extends Item{
     //special effects are like when an Ice blade can "chill" the enemy or 
     //a poison dart has the special effect "poison"
     private String specialEffect;
-    //weapon type is like blades, guns, etc. This is usd because some classes can only use certain weapons,
-    //for example nanomedic can not use guns but can use a scalpel or blades.
-    private String type;
+
     /**
      * @return the health
      */
@@ -139,19 +137,7 @@ public class Pants extends Item{
         this.specialEffect = specialEffect;
     }
 
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+ 
     
     @Override
     public void displayProperties(){
@@ -163,7 +149,7 @@ public class Pants extends Item{
         System.out.println("Defense : " + getHealth());
         System.out.println("Intelligence : " + getIntelligence());
         System.out.println("Duration : " + getSpecialEffect());
-        System.out.println("Special effects : " + getType());
+       
         
     }
 }

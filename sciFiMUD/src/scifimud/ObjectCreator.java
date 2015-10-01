@@ -15,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import static scifimud.ClassCreator.className;
 
 
 /**
@@ -73,6 +74,96 @@ public class ObjectCreator {
         return playerInventory;
             
     }
+    //creates all the equipment that the player is currently wearing
+    public static void createEquipment(String weapon, String torso, String head, String pants, String shoes){
+        //creating an empty object if no match was found
+        Item empty = new Item();
+        empty.setName("Nothing");
+        if(weapon.equals("Nothing")){
+            className.setWeapon(empty);
+        }
+        else{
+            searchEquipment(weapon, "weapon", TOTAL_WEAPONS, listofWeapons);
+        }
+        if(torso.equals("Nothing")){
+            className.setTorso(empty);
+        }
+        else{
+            searchEquipment(torso, "torso", TOTAL_TORSO, listofTorso);
+        }
+        if(head.equals("Nothing")){
+            className.setHead(empty);
+        }
+        else{
+            searchEquipment(head, "head", TOTAL_HEAD, listofHead);
+        }
+        if(pants.equals("Nothing")){
+            className.setPants(empty);
+        }
+        else{
+            searchEquipment(pants, "pants", TOTAL_PANTS, listofPants);
+        }
+        if(shoes.equals("Nothing")){
+            className.setShoes(empty);
+        }
+        else{
+            searchEquipment(shoes, "shoes", TOTAL_SHOES, listofShoes);
+        }
+        
+        
+       
+        
+        
+    }
+    //searches the inventory database for the equipment
+    public static void searchEquipment(String item, String type, int total, ArrayList<String> arrayList){
+        int low=0;
+        int high = total-1;
+        int mid;
+
+        while(low<= high){
+
+            mid=(high+low)/2;
+            //if a partial match is found return the word
+            if(arrayList.get(mid).startsWith(item)){
+                switch(type){
+                    case "head":
+                        className.setHead(createHead(arrayList.get(mid)));
+                        break;
+                    case "pants":
+                        className.setPants(createPants(arrayList.get(mid)));
+                        break;
+                    case "shoes":
+                        className.setShoes(createShoes(arrayList.get(mid)));
+                        break;
+                    case "torso":
+                        className.setTorso(createTorso(arrayList.get(mid)));
+                        break;
+                    case "weapon":
+                        className.setWeapon(createWeapon(arrayList.get(mid)));
+                        break;
+                    default:
+                        System.out.println("Error invalid equipment. Please contact admin.");
+                        break;
+                }
+                
+            }
+            //if the word being searched comes before the word in the dictionary
+            //then the you want to search an earlier word
+            if(item.compareTo((String) arrayList.get(mid))<0){
+                high=mid-1;
+                
+            }
+            //if the word being searched comes after the word in the dictionary 
+            //then you wan tto search for a later word
+            else if(item.compareTo((String) arrayList.get(mid))>0){
+                low=mid+1;
+                
+            }
+
+        }
+
+    }
         
     
     //takes all objects in inventory and returns a string of all the objects.
@@ -99,12 +190,9 @@ public class ObjectCreator {
     // alphabetizer.flap.tv/ is the website that can sort a list in alphebetical order based on each line
     public static ArrayList<Item> searchInventoryDatabase(String name, String fileName, int total, ArrayList<String> arrayList, ArrayList<Item> playerInventory) throws FileNotFoundException, IOException {
         
-        
-
         int low=0;
         int high = total-1;
         int mid;
-
 
         while(low<= high){
 
@@ -182,6 +270,8 @@ public class ObjectCreator {
         drink.setDuration(Integer.parseInt(newInventory[i]));
         i++;
         drink.setSpecialEffects(newInventory[i]);
+        i++;
+        drink.setGroup("drink");
         
         System.out.println(drink.getName() + " was successfully created!");
                 
@@ -208,6 +298,8 @@ public class ObjectCreator {
         food.setDuration(Integer.parseInt(newInventory[i]));
         i++;
         food.setSpecialEffects(newInventory[i]);
+        i++;
+        food.setGroup("food");
         
         System.out.println(food.getName() + " was successfully created!");
         
@@ -233,6 +325,8 @@ public class ObjectCreator {
         artifact.setIntelligence(Integer.parseInt(newInventory[i]));
         i++;
         artifact.setSpecialEffects(newInventory[i]);
+        i++;
+        artifact.setGroup("artifact");
         
         System.out.println(artifact.getName() + " was successfully created!");
         
@@ -257,9 +351,11 @@ public class ObjectCreator {
         i++;
         weapon.setIntelligence(Integer.parseInt(newInventory[i]));    
         i++;
+        weapon.setType(newInventory[i]);    
+        i++;
         weapon.setSpecialEffect(newInventory[i]);
         i++;
-        weapon.setType(newInventory[i]);
+        weapon.setGroup("weapon");
         
         System.out.println(weapon.getName() + " was successfully created!");
         
@@ -286,7 +382,7 @@ public class ObjectCreator {
         i++;
         torso.setSpecialEffect(newInventory[i]);
         i++;
-        torso.setType(newInventory[i]);
+        torso.setGroup("torso");
         
         System.out.println(torso.getName() + " was successfully created!");
         
@@ -313,7 +409,7 @@ public class ObjectCreator {
         i++;
         head.setSpecialEffect(newInventory[i]);
         i++;
-        head.setType(newInventory[i]);
+        head.setGroup("head");
         
         System.out.println(head.getName() + " was successfully created!");
         
@@ -336,11 +432,11 @@ public class ObjectCreator {
         i++;
         shoes.setDefense(Integer.parseInt(newInventory[i]));
         i++;
-        shoes.setIntelligence(Integer.parseInt(newInventory[i]));    
+        shoes.setIntelligence(Integer.parseInt(newInventory[i]));        
         i++;
         shoes.setSpecialEffect(newInventory[i]);
         i++;
-        shoes.setType(newInventory[i]);
+        shoes.setGroup("shoes");
         
         System.out.println(shoes.getName() + " was successfully created!");
         
@@ -366,7 +462,7 @@ public class ObjectCreator {
         i++;
         pants.setSpecialEffect(newInventory[i]);
         i++;
-        pants.setType(newInventory[i]);
+        pants.setGroup("pants");
         
         System.out.println(pants.getName() + " was successfully created!");
         

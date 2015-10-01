@@ -22,7 +22,6 @@ public class Torso extends Item{
     private int defense;
     private int intelligence;
     private String specialEffect;
-    private String type;
     /**
      * @return the health
      */
@@ -135,19 +134,7 @@ public class Torso extends Item{
         this.specialEffect = specialEffect;
     }
 
-    /**
-     * @return the type
-     */
-    public String getType() {
-        return type;
-    }
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
     
     @Override
     public void displayProperties(){
@@ -159,7 +146,7 @@ public class Torso extends Item{
         System.out.println("Defense : " + getHealth());
         System.out.println("Intelligence : " + getIntelligence());
         System.out.println("Duration : " + getSpecialEffect());
-        System.out.println("Special effects : " + getType());
+       
         
     }
 }

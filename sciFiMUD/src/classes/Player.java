@@ -6,6 +6,7 @@
 package classes;
 
 import Equipment.Item;
+import Monsters.Monster;
 import Skills.Basic;
 import java.util.ArrayList;
 import rooms.CentralHub;
@@ -16,6 +17,7 @@ import rooms.Sewers;
 import rooms.ThePit;
 import rooms.TrainStation;
 import rooms.Wastelands;
+import scifimud.ObjectCreator;
 
 /**
  *
@@ -59,11 +61,11 @@ public class Player implements Basic{
     private ArrayList<Item> inventory = new ArrayList();
     
     //players equipment
-    private String weapon;
-    private String head;
-    private String torso;
-    private String pants;
-    private String shoes;
+    private Item weapon;
+    private Item head;
+    private Item torso;
+    private Item pants;
+    private Item shoes;
     
     public Player(){
        
@@ -226,70 +228,70 @@ public class Player implements Basic{
     /**
      * @return the weapon
      */
-    public String getWeapon() {
+    public Item getWeapon() {
         return weapon;
     }
 
     /**
      * @param weapon the weapon to set
      */
-    public void setWeapon(String weapon) {
+    public void setWeapon(Item weapon) {
         this.weapon = weapon;
     }
 
     /**
      * @return the head
      */
-    public String getHead() {
+    public Item getHead() {
         return head;
     }
 
     /**
      * @param head the head to set
      */
-    public void setHead(String head) {
+    public void setHead(Item head) {
         this.head = head;
     }
 
     /**
      * @return the torso
      */
-    public String getTorso() {
+    public Item getTorso() {
         return torso;
     }
 
     /**
      * @param torso the torso to set
      */
-    public void setTorso(String torso) {
+    public void setTorso(Item torso) {
         this.torso = torso;
     }
 
     /**
      * @return the pants
      */
-    public String getPants() {
+    public Item getPants() {
         return pants;
     }
 
     /**
      * @param pants the pants to set
      */
-    public void setPants(String pants) {
+    public void setPants(Item pants) {
         this.pants = pants;
     }
 
     /**
      * @return the shoes
      */
-    public String getShoes() {
+    public Item getShoes() {
         return shoes;
     }
 
     /**
      * @param shoes the shoes to set
      */
-    public void setShoes(String shoes) {
+    public void setShoes(Item shoes) {
         this.shoes = shoes;
     }
 
@@ -310,12 +312,21 @@ public class Player implements Basic{
    
     @Override
     public void look() {
-       
+       System.out.println(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).roomDescription);
+       System.out.println("You see the following in the room:");
+       here();
     }
 
-    @Override
-    public void examine() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+    public void examine(String target) {
+        Item item = new Item();
+        item = searchInventory(target, getInventory());
+        if(item!=null){
+            item.displayProperties();
+        }
+        else{
+            System.out.println("Examine what?");
+        }
     }
 
     @Override
@@ -336,16 +347,23 @@ public class Player implements Basic{
     @Override
     public void equipment() {
         System.out.println("You are wearing :");
-        System.out.println("Weapon : " + getWeapon());
-        System.out.println("Head : " + getHead());
-        System.out.println("Torso : " + getTorso());
-        System.out.println("Head : " + getHead());
-        System.out.println("Shoes : " + getShoes());
+        System.out.println("Weapon : " + getWeapon().getName());
+        System.out.println("Head : " + getHead().getName());
+        System.out.println("Torso : " + getTorso().getName());
+        System.out.println("Head : " + getHead().getName());
+        System.out.println("Shoes : " + getShoes().getName());
     }
 
     @Override
     public void inventory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i;
+        String inventory = ObjectCreator.getInventory(getInventory());
+        String[] newInventory  = inventory.split(", ");
+
+        System.out.println("Inventory : ");
+        for(i=0 ; i<newInventory.length; i++){
+            System.out.println(newInventory[i]);
+        }
     }
 
     @Override
@@ -356,10 +374,12 @@ public class Player implements Basic{
             //used for debugging purposes to make sure room is updating
             //in the future we will add displayRoom objects and descriptions
             System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            look();
         }
         else{
             System.out.println("There is no exit there.");
         }
+        
     }
 
     @Override
@@ -368,11 +388,12 @@ public class Player implements Basic{
             setxCoordinate(getxCoordinate() - 1);
             setxCoordinate(getxCoordinate());
             System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
-
+            look();
         }
         else{
             System.out.println("There is no exit there.");
         }
+       
     }
 
     @Override
@@ -381,11 +402,12 @@ public class Player implements Basic{
             setyCoordinate(getyCoordinate() - 1);
             setyCoordinate(getyCoordinate());
             System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
-
+            look();
         }
         else{
             System.out.println("There is no exit there.");
         }
+        
     }
 
     @Override
@@ -395,11 +417,12 @@ public class Player implements Basic{
             setyCoordinate(getyCoordinate() + 1);
             setyCoordinate(getyCoordinate());
             System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
-
+            look();
         }
         else{
             System.out.println("There is no exit there.");
         }
+        
     }
     
      @Override
@@ -408,11 +431,12 @@ public class Player implements Basic{
             setzCoordinate(getzCoordinate() + 1);
             setzCoordinate(getzCoordinate());
             System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
-
+            look();
         }
         else{
             System.out.println("There is no exit there.");
         }
+        
     }
 
     @Override
@@ -430,7 +454,20 @@ public class Player implements Basic{
 
     @Override
     public void here() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i;
+        //used to store the arraylist of all items in the room
+        ArrayList<Item> tempInventory = new ArrayList();
+        //used to store the arraylist of all monsters in the room
+        ArrayList<Monster> tempMonsters = new ArrayList();
+
+        tempInventory = getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems();
+        for(i=0; i<tempInventory.size(); i++){
+            System.out.println(tempInventory.get(i).getName());
+        }
+        tempMonsters = getRoom(getxCoordinate(), getyCoordinate(),getzCoordinate()).getMonsters();
+        for(i=0; i<tempMonsters.size(); i++){
+            System.out.println(tempMonsters.get(i).getName());
+        }
     }
 
     @Override
@@ -457,6 +494,140 @@ public class Player implements Basic{
     @Override
     public void bitcoins() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //removes an item from players inventory
+    @Override
+    public void remove(String target) {
+        Item item = new Item();
+        item = findEquipment(target);
+        //used a "empty" slot
+        Item temp = new Item();
+        temp.setName("Nothing");
+
+        if(item != null){
+            switch(item.getGroup()){
+                case "weapon":
+                    setWeapon(temp);
+                    break;
+                case "torso":
+                    setTorso(temp);
+                    break;
+                case "head":
+                    setHead(temp);
+                    break;
+                case "pants":
+                    setPants(temp);
+                    break;
+                case "shoes":
+                    setShoes(temp);
+                    break;
+                default:
+                    System.out.println("Error no match in assiging weapon. Pleaese contact admin.");
+                    break;
+            }
+            //adds item to inventory
+           System.out.println("You remove a(n) " + item.getName()); 
+           setInventory(addItem(item));
+        }
+        else{
+            System.out.println("Remove what?");
+        }
+    }
+    
+    @Override
+    public void drop(String target) {
+        Item item = new Item();
+        item = searchInventory(target, getInventory());
+        if(item!=null){
+            //removes item from player inventory
+            setInventory(removeItem(target, getInventory()));
+            //adds the item to the room
+            getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).addItem(item);
+            System.out.println("You successully drop a(n) " + item.getName());
+        }
+        else{
+            System.out.println("Drop what?");
+        }
+    }
+    
+    @Override
+    public void take(String target) {
+        Item item = new Item();
+         //uses the same function as when searching a player inventory but this passes in different paramters such as the items in the room instead of the items in the players inventory
+        item =  searchInventory(target, getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems());
+        if(item != null){
+            //removes item from room if item is in the room
+            getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).setItems(removeItem(target, getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems()));
+            //adds item to inventory
+            System.out.println("You take a " + target);
+            setInventory(addItem(item));
+        }
+        else{
+            System.out.println("Take what?");
+        }
+    }
+    
+    @Override
+    public void wear(String target) {
+        Item item = new Item();
+        item = searchInventory(target, getInventory());
+        if(item!=null){
+            switch(item.getGroup()){
+                case "drink":
+                    System.out.println("You can't wear a drink");
+                    break;
+                case "food":
+                    System.out.println("You can't wear food.");
+                    break;
+                case "artifact":
+                    System.out.println("You can't wear that.");
+                    break;
+                case "weapon":
+                    //if there is already an item being worn in the slot first remove the item and then wear the desired equipment
+                    if(!getWeapon().getName().equals("Nothing")){
+                       remove(getWeapon().getName());
+                    }
+                    setWeapon(item);
+                    System.out.println("You wear a " + item.getName());
+                    break;
+                case "torso":
+                    if(!getTorso().getName().equals("Nothing")){
+                       remove(getTorso().getName());
+                    }
+                    setTorso(item);
+                    System.out.println("You wear a " + item.getName());
+                    break;
+                case "head":
+                    if(!getHead().getName().equals("Nothing")){
+                       remove(getHead().getName());
+                    }
+                    setHead(item);
+                    System.out.println("You wear a " + item.getName());
+                    break;
+                case "shoes":
+                    if(!getShoes().getName().equals("Nothing")){
+                       remove(getShoes().getName());
+                    }
+                    setShoes(item);
+                    System.out.println("You wear a " + item.getName());
+                    break;
+                case "pants":
+                    if(!getPants().getName().equals("Nothing")){
+                       remove(getPants().getName());
+                    }
+                    setPants(item);
+                    System.out.println("You wear a " + item.getName());
+                    break;
+                default:
+                    break;
+            }
+            //removes the item from the players inventory now that he is wearing it
+            setInventory(removeItem(target, getInventory()));
+        }
+        else{
+            System.out.println("Wear what?");
+        }
     }
 
     /**
@@ -650,5 +821,40 @@ public class Player implements Basic{
     public ArrayList<Item> addItem(String target, ArrayList<Item> inventory) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    //checks to see if the any of the equipment matches and if so it returns the piece of equipment. Otherwise it returns null
+    //if no match was found
+    public Item findEquipment(String item){
+        if(item.equalsIgnoreCase(getWeapon().getName())){
+            return getWeapon();
+        }
+        else if(item.equalsIgnoreCase(getTorso().getName())){
+            return getTorso();
+        }
+        else if(item.equalsIgnoreCase(getHead().getName())){
+            return getHead();
+        }
+        else if(item.equalsIgnoreCase(getShoes().getName())){
+            return getShoes();
+        }
+        else if(item.equalsIgnoreCase(getPants().getName())){
+            return getPants();
+        }
+        return null;
+    }
+
+    @Override
+    public void examine() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+
+    
+
+  
+
+    
+    
     
 }

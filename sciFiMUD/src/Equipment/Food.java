@@ -21,6 +21,7 @@ public class Food extends Item{
     private int intelligence;
     //duration will be in milliseconds or seconds. implementation is still being discussed
     private int duration;
+   
     //some foods can make players sick or weak
     private String specialEffects;
 

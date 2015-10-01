@@ -93,6 +93,7 @@ public class ClassCreator {
         //creating players inventory and the objects in the inventory
         tempInventory = ObjectCreator.createInventory(inventory, tempInventory);
         
+        
         //creates new player associated with his/her class
         switch(classname){
             case "Cyborg":
@@ -119,11 +120,7 @@ public class ClassCreator {
                 cyborg.setDefense(20);
                 cyborg.setIntelligence(22);
  
-                cyborg.setWeapon(weapon);
-                cyborg.setTorso(torso);
-                cyborg.setHead(head);
-                cyborg.setPants(pants);
-                cyborg.setShoes(shoes);
+                
                 className = cyborg;
                 break;
             
@@ -151,11 +148,7 @@ public class ClassCreator {
                 //for now inventory will be empty we will implement this later
                 nanomedic.setInventory(tempInventory);
                 
-                nanomedic.setWeapon(weapon);
-                nanomedic.setTorso(torso);
-                nanomedic.setHead(head);
-                nanomedic.setPants(pants);
-                nanomedic.setShoes(shoes);
+               
                 className = nanomedic;
                 break;
             
@@ -183,11 +176,7 @@ public class ClassCreator {
                 //for now inventory will be empty we will implement this later
                 cybersecurityarchitect.setInventory(tempInventory);
                 
-                cybersecurityarchitect.setWeapon(weapon);
-                cybersecurityarchitect.setTorso(torso);
-                cybersecurityarchitect.setHead(head);
-                cybersecurityarchitect.setPants(pants);
-                cybersecurityarchitect.setShoes(shoes);
+               
                 
                 className = cybersecurityarchitect;
                 break;
@@ -216,11 +205,7 @@ public class ClassCreator {
                 
                 timetraveler.setInventory(tempInventory);
                 
-                timetraveler.setWeapon(weapon);
-                timetraveler.setTorso(torso);
-                timetraveler.setHead(head);
-                timetraveler.setPants(pants);
-                timetraveler.setShoes(shoes);
+                
                 className = timetraveler;
                 break;
             
@@ -248,11 +233,7 @@ public class ClassCreator {
                 //for now inventory will be empty we will implement this later
                 blackhandrogue.setInventory(tempInventory);
                 
-                blackhandrogue.setWeapon(weapon);
-                blackhandrogue.setTorso(torso);
-                blackhandrogue.setHead(head);
-                blackhandrogue.setPants(pants);
-                blackhandrogue.setShoes(shoes);
+               
                 className = blackhandrogue;
                 break;
             //in case the file did not read the class properly it will terminate application
@@ -261,5 +242,7 @@ public class ClassCreator {
                 System.exit(0);
                 
         }
+        //creates players equipment
+        ObjectCreator.createEquipment(weapon, torso,  head,  pants, shoes);
     }
 }

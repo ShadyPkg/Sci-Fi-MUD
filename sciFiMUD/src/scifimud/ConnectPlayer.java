@@ -37,7 +37,7 @@ import static scifimud.ClassCreator.className;
  */
 //creates an instance to connect a player
 public class ConnectPlayer {
-    private static final int TOTAL_WORDS = 31;
+    private static final int TOTAL_WORDS = 32;
     public static ArrayList<String> listOfWords = new ArrayList<>();
     
     //intitalizing maps
@@ -83,7 +83,6 @@ public class ConnectPlayer {
         String newCommand;
         //use to break a command if a certain target or thing needs to be parsed after a particular keyword
         String target;
-        Item item = new Item();
         //this variable is used in for loops within the switch statements below. Do not remove.
         int i;
         
@@ -114,20 +113,7 @@ public class ConnectPlayer {
                         break;
                     }
                     target = command.substring(5);
-                   
-                    
-                    item = className.searchInventory(target, className.getInventory());
-                    if(item!=null){
-                        //removes item from player inventory
-                        className.setInventory(className.removeItem(target, className.getInventory()));
-                        //adds the item to the room
-                        className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).addItem(item);
-                        System.out.println("You successully drop a(n) " + item.getName());
-                    }
-                    else{
-                        System.out.println("Drop what?");
-                    }
-                    
+                    className.drop(target);
                     break;
                     
                 case "east":
@@ -146,41 +132,17 @@ public class ConnectPlayer {
                         break;
                     }
                     target = command.substring(8);
+                    className.examine(target);
                     
-                    item = className.searchInventory(target, className.getInventory());
-                    if(item!=null){
-                        item.displayProperties();
-                    }
-                    else{
-                        System.out.println("Examine what?");
-                    }
                     
                     break;
                     
                 case "here":
-                    //used to store the arraylist of all items in the room
-                    ArrayList<Item> tempInventory = new ArrayList();
-                    //used to store the arraylist of all monsters in the room
-                    ArrayList<Monster> tempMonsters = new ArrayList();
-                    
-                    tempInventory = className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems();
-                    for(i=0; i<tempInventory.size(); i++){
-                        System.out.println(tempInventory.get(i).getName());
-                    }
-                    tempMonsters = className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getMonsters();
-                    for(i=0; i<tempMonsters.size(); i++){
-                        System.out.println(tempMonsters.get(i).getName());
-                    }
+                    className.here();
                     break;
                     
                 case "inventory":
-                    String inventory = ObjectCreator.getInventory(className.getInventory());
-                    String[] newInventory  = inventory.split(", ");
-                    
-                    System.out.println("Inventory : ");
-                    for(i=0 ; i<newInventory.length; i++){
-                        System.out.println(newInventory[i]);
-                    }
+                    className.inventory();
                     break;
                 case "kill":
                     if(command.length()<=4){
@@ -205,7 +167,7 @@ public class ConnectPlayer {
                     break;
                     
                 case "look":
-                    System.out.println(className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).roomDescription);
+                    className.look();
                     break;
                     
                 case  "north":
@@ -215,6 +177,15 @@ public class ConnectPlayer {
                     savePlayer(className.getName(), className.getPassword(), className.getClassName(), className.getLevel(), className.getExperience(), className.getLocation(), className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate(), className.getBitcoins(), className.getStatus(), className.getInventory(), className.getWeapon(), className.getTorso(), className.getPants(), className.getHead(), className.getShoes());
                     System.out.println("Goodbye!");
                     System.exit(0);    
+                    break;
+                
+                case "remove":
+                    if(command.length() <= 7){
+                        System.out.println("Remove what?");
+                        break;
+                    }
+                    target = command.substring(7);
+                    className.remove(target);
                     break;
                     
                 case "save":
@@ -252,15 +223,7 @@ public class ConnectPlayer {
                         break;
                     }
                     target = command.substring(5);
-                    //uses the same function as when searching a player inventory but this passes in different paramters such as the items in the room instead of the items in the players inventory
-                    item =  className.searchInventory(target, className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems());
-                    if(item != null){
-                        //removes item from room if item is in the room
-                        className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).setItems(className.removeItem(target, className.getRoom(className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate()).getItems()));
-                        //adds item to inventory
-                        System.out.println("You take a " + target);
-                        className.setInventory(className.addItem(item));
-                    }
+                    className.take(target);
                     break;
                     
                 case "tell":
@@ -276,6 +239,13 @@ public class ConnectPlayer {
                     break;
                 
                 case "wear":
+                    if(command.length() <= 4){
+                        System.out.println("Wear what?");
+                        break;
+                    }
+                    target = command.substring(5);
+                    className.wear(target);
+                    
                     break;
                     
                 case "west":
@@ -376,7 +346,7 @@ public class ConnectPlayer {
     
   
     //saves player data to a file
-    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, String weapon, String torso, String pants, String head, String shoes) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, Item weapon, Item torso, Item pants, Item head, Item shoes) throws FileNotFoundException, UnsupportedEncodingException{
      
          try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
             //name
@@ -403,15 +373,15 @@ public class ConnectPlayer {
             writer.println(ObjectCreator.getInventory(inventory));
             
             //players weapon equipment
-            writer.println(weapon);
+            writer.println(weapon.getName());
             //players head equipment
-            writer.println(head);
+            writer.println(head.getName());
             //players torso equipment
-            writer.println(torso);
+            writer.println(torso.getName());
             //players pants equipments
-            writer.println(pants);
+            writer.println(pants.getName());
             //players shoe equipment
-            writer.println(shoes);
+            writer.println(shoes.getName());
             System.out.println("Successfully saved player data");
             writer.close();
         }

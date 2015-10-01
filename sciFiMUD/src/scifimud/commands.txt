@@ -16,6 +16,7 @@ location
 look
 north
 quit
+remove
 save
 say
 self
