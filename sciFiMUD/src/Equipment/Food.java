@@ -19,8 +19,7 @@ public class Food extends Item{
     private int attack;
     private int defense;
     private int intelligence;
-    //duration will be in milliseconds or seconds. implementation is still being discussed
-    private int duration;
+
    
     //some foods can make players sick or weak
     private String specialEffects;
@@ -109,19 +108,7 @@ public class Food extends Item{
         this.intelligence = intelligence;
     }
 
-    /**
-     * @return the duration
-     */
-    public int getDuration() {
-        return duration;
-    }
-
-    /**
-     * @param duration the duration to set
-     */
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+ 
 
     /**
      * @return the specialEffects
@@ -160,7 +147,6 @@ public class Food extends Item{
         System.out.println("Attack : " + getAttack());
         System.out.println("Defense : " + getHealth());
         System.out.println("Intelligence : " + getIntelligence());
-        System.out.println("Duration : " + getDuration());
         System.out.println("Special effects : " + getSpecialEffects());
         
     }

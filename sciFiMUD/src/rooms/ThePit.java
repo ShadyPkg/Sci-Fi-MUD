@@ -7,6 +7,10 @@ import Monsters.Infestor;
 import Monsters.Monster;
 import java.util.ArrayList;
 import java.util.Random;
+import scifimud.ObjectCreator;
+import static scifimud.ObjectCreator.createDrink;
+import static scifimud.ObjectCreator.createFood;
+import static scifimud.ObjectCreator.createShoes;
 
 /**
  *
@@ -28,6 +32,8 @@ public class ThePit extends Room{
         xCoordinate = x;
         yCoordinate = y;
         zCoordinate = z;
+        //when room is created there is a chance an item will spawn in it
+        spawnItem(items);
     }
     
     //spawns monsters in room for players to fight
@@ -51,8 +57,34 @@ public class ThePit extends Room{
         }
     }
     //spawns items or objects in room for player to interact with
-    public void spawnItem(){
+    public void spawnItem(ArrayList<Item> thisItem){
+        Random randomGenerator = new Random(System.currentTimeMillis());
+        int value = randomGenerator.nextInt(7);
+        //this value is use to choose a random item in a category to create
+        int random;
         
+        switch(value){
+            case 1:
+                random = randomGenerator.nextInt(ObjectCreator.TOTAL_DRINKS);
+               
+                thisItem.add(createDrink(ObjectCreator.listofDrinks.get(random)));
+                break;
+            case 2:
+                random = randomGenerator.nextInt(ObjectCreator.TOTAL_FOOD);
+              
+                thisItem.add(createFood(ObjectCreator.listofFood.get(random)));
+                break;
+             case 3:
+                
+                random = randomGenerator.nextInt(ObjectCreator.TOTAL_SHOES);
+        
+                thisItem.add(createShoes(ObjectCreator.listofShoes.get(random)));
+                break;
+            default:
+                break;
+             
+             
+        }
     }
 
     /**

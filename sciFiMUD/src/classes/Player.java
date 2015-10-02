@@ -317,7 +317,7 @@ public class Player implements Basic{
        here();
     }
 
-   
+    //examines inventory or equpiment to give stats
     public void examine(String target) {
         Item item = new Item();
         item = searchInventory(target, getInventory());
@@ -462,6 +462,7 @@ public class Player implements Basic{
 
         tempInventory = getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems();
         for(i=0; i<tempInventory.size(); i++){
+            
             System.out.println(tempInventory.get(i).getName());
         }
         tempMonsters = getRoom(getxCoordinate(), getyCoordinate(),getzCoordinate()).getMonsters();
@@ -469,6 +470,7 @@ public class Player implements Basic{
             System.out.println(tempMonsters.get(i).getName());
         }
     }
+    
 
     @Override
     public void self() {
@@ -847,14 +849,5 @@ public class Player implements Basic{
     public void examine() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-
-    
-
-  
-
-    
-    
     
 }

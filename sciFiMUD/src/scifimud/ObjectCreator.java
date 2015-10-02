@@ -28,14 +28,14 @@ public class ObjectCreator {
     //total number of items in each text file
     //everytime you add items in the text file you need to update this.
     //Make sure to alphebetize files
-    static int TOTAL_DRINKS = 2;
-    static int TOTAL_FOOD = 3;
-    static int TOTAL_HEAD = 0;
-    static int TOTAL_OBJECTS = 0;
-    static int TOTAL_PANTS = 0;
-    static int TOTAL_SHOES = 2;
-    static int TOTAL_TORSO = 0;
-    static int TOTAL_WEAPONS = 4;
+    public static int TOTAL_DRINKS = 2;
+    public static int TOTAL_FOOD = 3;
+    public static int TOTAL_HEAD = 0;
+    public static int TOTAL_OBJECTS = 0;
+    public static int TOTAL_PANTS = 0;
+    public static int TOTAL_SHOES = 2;
+    public static int TOTAL_TORSO = 0;
+    public static int TOTAL_WEAPONS = 4;
     
     public static ArrayList<String> listofDrinks = new ArrayList<>();
     public static ArrayList<String> listofFood = new ArrayList<>();
@@ -294,8 +294,6 @@ public class ObjectCreator {
         food.setDefense(Integer.parseInt(newInventory[i]));
         i++;
         food.setIntelligence(Integer.parseInt(newInventory[i]));
-        i++;
-        food.setDuration(Integer.parseInt(newInventory[i]));
         i++;
         food.setSpecialEffects(newInventory[i]);
         i++;

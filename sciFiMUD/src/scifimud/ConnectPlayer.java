@@ -6,7 +6,6 @@ package scifimud;
 
 
 import Equipment.Item;
-import Monsters.Monster;
 import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
@@ -77,20 +76,13 @@ public class ConnectPlayer {
         readDict();
         
         //loop to read in input of player
-        int gameOver = 0;
         Scanner stdin = new Scanner(System.in);
         String command;
         String newCommand;
         //use to break a command if a certain target or thing needs to be parsed after a particular keyword
         String target;
-        //this variable is used in for loops within the switch statements below. Do not remove.
-        int i;
         
-        while(true){
-            if(gameOver == 1){
-                System.out.println("Goodbye!");
-                System.exit(0);
-            }    
+        while(true){  
                   
            command = stdin.nextLine();
            //ensures log n lookup
@@ -278,13 +270,10 @@ public class ConnectPlayer {
     }
     
     public static String binarySearch(String word){
-        int i;
         
         int low=0;
         int high = TOTAL_WORDS-1;
         int mid;
-        
-        
         
         while(low<= high){
             
@@ -420,12 +409,4 @@ public class ConnectPlayer {
         }
     }
 
-
-    
-    
-    
-    
-    
-    
-    
 }
