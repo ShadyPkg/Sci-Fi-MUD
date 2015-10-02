@@ -273,7 +273,7 @@ public class ObjectCreator {
         i++;
         drink.setGroup("drink");
         
-        System.out.println(drink.getName() + " was successfully created!");
+
                 
         return drink;
     }
@@ -299,7 +299,7 @@ public class ObjectCreator {
         i++;
         food.setGroup("food");
         
-        System.out.println(food.getName() + " was successfully created!");
+       
         
         return food;
     }
@@ -326,7 +326,7 @@ public class ObjectCreator {
         i++;
         artifact.setGroup("artifact");
         
-        System.out.println(artifact.getName() + " was successfully created!");
+       
         
         return artifact;
     }
@@ -355,7 +355,7 @@ public class ObjectCreator {
         i++;
         weapon.setGroup("weapon");
         
-        System.out.println(weapon.getName() + " was successfully created!");
+        
         
         return weapon;
     }
@@ -382,7 +382,7 @@ public class ObjectCreator {
         i++;
         torso.setGroup("torso");
         
-        System.out.println(torso.getName() + " was successfully created!");
+        
         
         return torso;
     }
@@ -409,7 +409,7 @@ public class ObjectCreator {
         i++;
         head.setGroup("head");
         
-        System.out.println(head.getName() + " was successfully created!");
+        
         
         return head;
     }
@@ -436,7 +436,7 @@ public class ObjectCreator {
         i++;
         shoes.setGroup("shoes");
         
-        System.out.println(shoes.getName() + " was successfully created!");
+        
         
         return shoes;
     }
@@ -462,7 +462,7 @@ public class ObjectCreator {
         i++;
         pants.setGroup("pants");
         
-        System.out.println(pants.getName() + " was successfully created!");
+        
         
         return pants;
     }

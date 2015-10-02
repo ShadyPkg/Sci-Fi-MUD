@@ -33,7 +33,7 @@ public class ThePit extends Room{
         yCoordinate = y;
         zCoordinate = z;
         //when room is created there is a chance an item will spawn in it
-        spawnItem(items);
+        spawnItem();
     }
     
     //spawns monsters in room for players to fight
@@ -57,34 +57,35 @@ public class ThePit extends Room{
         }
     }
     //spawns items or objects in room for player to interact with
-    public void spawnItem(ArrayList<Item> thisItem){
-        Random randomGenerator = new Random(System.currentTimeMillis());
-        int value = randomGenerator.nextInt(7);
+    public void spawnItem(){
+        Random randomGenerator = new Random();
+        int value = randomGenerator.nextInt(10);
         //this value is use to choose a random item in a category to create
         int random;
         
         switch(value){
             case 1:
                 random = randomGenerator.nextInt(ObjectCreator.TOTAL_DRINKS);
-               
-                thisItem.add(createDrink(ObjectCreator.listofDrinks.get(random)));
+                
+                items.add(createDrink(ObjectCreator.listofDrinks.get(random)));
                 break;
             case 2:
                 random = randomGenerator.nextInt(ObjectCreator.TOTAL_FOOD);
-              
-                thisItem.add(createFood(ObjectCreator.listofFood.get(random)));
+                
+                items.add(createFood(ObjectCreator.listofFood.get(random)));
                 break;
              case 3:
                 
                 random = randomGenerator.nextInt(ObjectCreator.TOTAL_SHOES);
-        
-                thisItem.add(createShoes(ObjectCreator.listofShoes.get(random)));
+              
+                items.add(createShoes(ObjectCreator.listofShoes.get(random)));
                 break;
             default:
                 break;
              
              
         }
+        
     }
 
     /**
