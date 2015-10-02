@@ -1,4 +1,4 @@
 Ice Blade, 0, 20, 4, 0, 0, 0, Blade, Ice
 Plasma Gun, 0, 30, 6, 0, 0, 0, Gun, Stun
 Poison Dagger, 0, 0, 3, 0, 0, 0, Dagger, Poison
-Scalpel, 0 , 0, 1, , 0, 0, 0, Blade, None
+Scalpel, 0, 0, 1, 0, 0, 0, Blade, None

@@ -8,6 +8,7 @@ package Monsters;
  */
 public class CorruptAndroid extends Monster{
     
+    private String name = "Android";
     //The description when a player examines corruptAndriod
     private String description = "A tall robot like figure looms here.";
     private String status = "Healthy";
@@ -246,5 +247,21 @@ public class CorruptAndroid extends Monster{
      */
     public void setzCoordinate(int zCoordinate) {
         this.zCoordinate = zCoordinate;
+    }
+
+    /**
+     * @return the name
+     */
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 }

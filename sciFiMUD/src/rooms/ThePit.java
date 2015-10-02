@@ -11,6 +11,7 @@ import scifimud.ObjectCreator;
 import static scifimud.ObjectCreator.createDrink;
 import static scifimud.ObjectCreator.createFood;
 import static scifimud.ObjectCreator.createShoes;
+import static scifimud.ObjectCreator.createWeapon;
 
 /**
  *
@@ -34,12 +35,14 @@ public class ThePit extends Room{
         zCoordinate = z;
         //when room is created there is a chance an item will spawn in it
         spawnItem();
+        //when room is created there is a chance for a monster to spawn in it
+        spawnMonster();
     }
     
     //spawns monsters in room for players to fight
-    public void spawnMonster(int number){
+    public void spawnMonster(){
         //seeding random number genator
-        Random randomGenerator = new Random(System.currentTimeMillis());
+        Random randomGenerator = new Random();
         int value = randomGenerator.nextInt(8);
         switch(value){
             case 1:
@@ -59,7 +62,7 @@ public class ThePit extends Room{
     //spawns items or objects in room for player to interact with
     public void spawnItem(){
         Random randomGenerator = new Random();
-        int value = randomGenerator.nextInt(10);
+        int value = randomGenerator.nextInt(12);
         //this value is use to choose a random item in a category to create
         int random;
         
@@ -79,6 +82,12 @@ public class ThePit extends Room{
                 random = randomGenerator.nextInt(ObjectCreator.TOTAL_SHOES);
               
                 items.add(createShoes(ObjectCreator.listofShoes.get(random)));
+                break;
+                 
+            case 4:
+                
+                random = randomGenerator.nextInt(ObjectCreator.TOTAL_WEAPONS);
+                items.add(createWeapon(ObjectCreator.listofWeapons.get(random)));
                 break;
             default:
                 break;
