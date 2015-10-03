@@ -13,6 +13,7 @@ import Equipment.Weapons;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import static java.lang.System.console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static scifimud.ClassCreator.className;

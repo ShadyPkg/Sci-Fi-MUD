@@ -6,6 +6,7 @@ import classes.Player;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import static java.lang.System.console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static scifimud.ConnectPlayer.blackhandrogue;
@@ -18,7 +19,7 @@ import static scifimud.ConnectPlayer.timetraveler;
  *
  * @author root
  */
-public class ClassCreator {
+public class ClassCreator{
     //will be used as a global reference to the class the player selected
     static Player className;
     public static void initalizeClass(String name) throws FileNotFoundException, IOException{

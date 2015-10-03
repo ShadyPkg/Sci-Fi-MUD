@@ -5,6 +5,9 @@
 package scifimud;
 
 import PlayerInformation.EncryptString;
+import java.applet.Applet;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,13 +20,16 @@ import java.security.GeneralSecurityException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
+import static scifimud.Console.jTextArea1;
+import static scifimud.Console.jTextArea2;
 
 
 /**
  *
  * @author jonc
  */
-public class SciFiMUD {
+public class SciFiMUD{
 
     /**
      * @param args the command line arguments
@@ -31,14 +37,33 @@ public class SciFiMUD {
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException, IOException  {
+        
+      //   JFrame frame = new JFrame();
+     //   frame.setSize(1100, 800);
+
+       // final Applet applet = new Console();
+
+    //    frame.getContentPane().add(applet);
+     //   frame.addWindowListener(new WindowAdapter() {
+    //       public void windowClosing(WindowEvent we) {
+     //           applet.stop();
+     //           applet.destroy();
+     //           System.exit(0);
+     //       }
+    //    });
+//
+    //    frame.setVisible(true);
+    //    applet.init();
+     //   applet.start();
+        
         // Need to add splash screen login
-        System.out.println("Welcome to Digital Wasteland.");
+        System.out.println("Welcome to Digital Wastelands.");
         //reads in name and pass into a text file
         String name;
         Scanner stdin = new Scanner(System.in);     
         while(true){
             System.out.println("What is your name?");
-            name = stdin.nextLine();
+            name = stdin.next();
             //makes sure name has no spaces, numbers, or special charcters and
             //length of name is between 3 to 12 charaters. 
             Pattern pattern = Pattern.compile("[A-Za-z]{3,12}");
@@ -47,7 +72,7 @@ public class SciFiMUD {
                 break;
             }
             else{
-                System.out.println("No spaces, numbers, special characters and name must be between length of 3 to 12 characters.");
+                jTextArea1.setText(jTextArea1.getText() + "\n" + "No spaces, numbers, special characters and name must be between length of 3 to 12 characters.");
             }
         }
         //checks to see if the name exists

@@ -35,7 +35,10 @@ import static scifimud.ClassCreator.className;
  * @author jonc
  */
 //creates an instance to connect a player
+
 public class ConnectPlayer {
+    
+   
     private static final int TOTAL_WORDS = 32;
     public static ArrayList<String> listOfWords = new ArrayList<>();
     
@@ -335,7 +338,7 @@ public class ConnectPlayer {
     
   
     //saves player data to a file
-    public static void savePlayer(String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, Item weapon, Item torso, Item pants, Item head, Item shoes) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void savePlayer  (String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, Item weapon, Item torso, Item pants, Item head, Item shoes) throws FileNotFoundException, UnsupportedEncodingException{
      
          try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
             //name
@@ -391,7 +394,7 @@ public class ConnectPlayer {
     //need to add extra health regeneration to player when sleeping
     //also in the future add a function to allow player to sleep on bed if
     //player chooses to do so. This will give a greater boost to health regen.
-    public static void sleep(){
+    public static void sleep() {
         
         System.out.println("You lay down and sleep.");
         Scanner scanner = new Scanner(System.in);

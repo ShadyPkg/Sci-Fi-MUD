@@ -22,7 +22,7 @@ import static scifimud.ConnectPlayer.wastelandsMap;
  *
  * @author jonc
  */
-public class MapCreator {
+public class MapCreator{
     
     //x, y, and z coordinates for all the maps
     static final int ThePitX = 100;
@@ -53,7 +53,7 @@ public class MapCreator {
     static final int SecretY = 5;
     static final int SecretZ = 5;
     
-    public static void initializeMap(String location){
+    public static void initializeMap (String location){
         
         int i;
         int j;
