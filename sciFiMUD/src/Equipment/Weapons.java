@@ -1,6 +1,8 @@
 //Joanthan Chin
 package Equipment;
 
+import static scifimud.ConsoleApplet.console;
+
 /**
  *
  * @author jonc
@@ -152,15 +154,15 @@ public class Weapons extends Item{
     
     @Override
     public void displayProperties(){
-        System.out.println(getName());
-        System.out.println("Health : " + getHealth());
-        System.out.println("Energy : " + getHealth());
-        System.out.println("Speed  : " + getSpeed());
-        System.out.println("Attack : " + getAttack());
-        System.out.println("Defense : " + getHealth());
-        System.out.println("Intelligence : " + getIntelligence());
-        System.out.println("Duration : " + getSpecialEffect());
-        System.out.println("Special effects : " + getType());
+        console.putln(getName());
+        console.putln("Health : " + getHealth());
+        console.putln("Energy : " + getHealth());
+        console.putln("Speed  : " + getSpeed());
+        console.putln("Attack : " + getAttack());
+        console.putln("Defense : " + getHealth());
+        console.putln("Intelligence : " + getIntelligence());
+        console.putln("Duration : " + getSpecialEffect());
+        console.putln("Special effects : " + getType());
         
     }
 }

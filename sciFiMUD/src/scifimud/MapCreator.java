@@ -17,6 +17,7 @@ import static scifimud.ConnectPlayer.secretMap;
 import static scifimud.ConnectPlayer.sewerMap;
 import static scifimud.ConnectPlayer.trainMap;
 import static scifimud.ConnectPlayer.wastelandsMap;
+import static scifimud.ConsoleApplet.console;
 
 /**
  *
@@ -75,7 +76,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("You have entered The Pit. Dead bodies of fallen heros lay everywhere. Will you join them or will you survive?");
+                console.putln("You have entered The Pit. Dead bodies of fallen heros lay everywhere. Will you join them or will you survive?");
                 
                 break;
             case "Central Hub":
@@ -91,7 +92,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("You have entered The Hub. The center of information and exchange.");
+                console.putln("You have entered The Hub. The center of information and exchange.");
                 break;
                 
             case "Factory":
@@ -107,7 +108,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("Levers and cranks churn as you enter the factory.");
+                console.putln("Levers and cranks churn as you enter the factory.");
                 break;
                 
             case "Sewers":
@@ -123,7 +124,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("This place really reeks! Lets get out of here before you pass out!");
+                console.putln("This place really reeks! Lets get out of here before you pass out!");
                 break;
                 
             case "TrainStation":
@@ -139,7 +140,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("An old underground train station still remains here.");
+                console.putln("An old underground train station still remains here.");
             case "Wastelands":
                 wastelandsMap = new Wastelands[WastelandsX][WastelandsY][WastelandsZ];
                 className.setArea(wastelandsMap);
@@ -153,7 +154,7 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("You are either very brave or very foolish for venturing out here.");
+                console.putln("You are either very brave or very foolish for venturing out here.");
                 break;
                 
             case "Secret":
@@ -168,11 +169,11 @@ public class MapCreator{
                     }
                     
                 }
-                System.out.println("Only a few have ever discovered this place.");
+                console.putln("Only a few have ever discovered this place.");
                 break;        
                 
             default:
-                System.out.println("Error intitalizing map. Invalid map name please contact admin.");
+                console.putln("Error intitalizing map. Invalid map name please contact admin.");
                 System.exit(0);
                 break;
         }

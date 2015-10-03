@@ -17,6 +17,7 @@ import rooms.Sewers;
 import rooms.ThePit;
 import rooms.TrainStation;
 import rooms.Wastelands;
+import static scifimud.ConsoleApplet.console;
 import scifimud.ObjectCreator;
 
 /**
@@ -312,8 +313,8 @@ public class Player implements Basic{
    
     @Override
     public void look() {
-       System.out.println(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).roomDescription);
-       System.out.println("You see the following in the room:");
+       console.putln(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).roomDescription);
+       console.putln("You see the following in the room:");
        here();
     }
 
@@ -325,7 +326,7 @@ public class Player implements Basic{
             item.displayProperties();
         }
         else{
-            System.out.println("Examine what?");
+            console.putln("Examine what?");
         }
     }
 
@@ -346,12 +347,12 @@ public class Player implements Basic{
 
     @Override
     public void equipment() {
-        System.out.println("You are wearing :");
-        System.out.println("Weapon : " + getWeapon().getName());
-        System.out.println("Head : " + getHead().getName());
-        System.out.println("Torso : " + getTorso().getName());
-        System.out.println("Head : " + getHead().getName());
-        System.out.println("Shoes : " + getShoes().getName());
+        console.putln("You are wearing :");
+        console.putln("Weapon : " + getWeapon().getName());
+        console.putln("Head : " + getHead().getName());
+        console.putln("Torso : " + getTorso().getName());
+        console.putln("Head : " + getHead().getName());
+        console.putln("Shoes : " + getShoes().getName());
     }
 
     @Override
@@ -360,9 +361,9 @@ public class Player implements Basic{
         String inventory = ObjectCreator.getInventory(getInventory());
         String[] newInventory  = inventory.split(", ");
 
-        System.out.println("Inventory : ");
+        console.putln("Inventory : ");
         for(i=0 ; i<newInventory.length; i++){
-            System.out.println(newInventory[i]);
+            console.putln(newInventory[i]);
         }
     }
 
@@ -373,11 +374,11 @@ public class Player implements Basic{
             setxCoordinate(getxCoordinate());
             //used for debugging purposes to make sure room is updating
             //in the future we will add displayRoom objects and descriptions
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
             look();
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
         
     }
@@ -387,11 +388,11 @@ public class Player implements Basic{
        if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isWest()){
             setxCoordinate(getxCoordinate() - 1);
             setxCoordinate(getxCoordinate());
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
             look();
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
        
     }
@@ -401,11 +402,11 @@ public class Player implements Basic{
         if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isSouth()){
             setyCoordinate(getyCoordinate() - 1);
             setyCoordinate(getyCoordinate());
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
             look();
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
         
     }
@@ -416,11 +417,11 @@ public class Player implements Basic{
         if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isNorth()){
             setyCoordinate(getyCoordinate() + 1);
             setyCoordinate(getyCoordinate());
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
             look();
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
         
     }
@@ -430,11 +431,11 @@ public class Player implements Basic{
         if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isUp()){
             setzCoordinate(getzCoordinate() + 1);
             setzCoordinate(getzCoordinate());
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
             look();
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
         
     }
@@ -444,11 +445,11 @@ public class Player implements Basic{
         if(getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).isDown()){
             setzCoordinate(getzCoordinate() - 1);
             setzCoordinate(getzCoordinate());
-            System.out.printf("You are located in the room coordinates %d %d %d\n", getxCoordinate(), getyCoordinate(), getzCoordinate());
+            console.putln("You are located in the room coordinates\n" + getxCoordinate() + " " + getyCoordinate() + " " + getzCoordinate());
 
         }
         else{
-            System.out.println("There is no exit there.");
+            console.putln("There is no exit there.");
         }
     }
 
@@ -463,11 +464,11 @@ public class Player implements Basic{
         tempInventory = getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems();
         for(i=0; i<tempInventory.size(); i++){
             
-            System.out.println(tempInventory.get(i).getName());
+            console.putln(tempInventory.get(i).getName());
         }
         tempMonsters = getRoom(getxCoordinate(), getyCoordinate(),getzCoordinate()).getMonsters();
         for(i=0; i<tempMonsters.size(); i++){
-            System.out.println(tempMonsters.get(i).getName());
+            console.putln(tempMonsters.get(i).getName());
         }
     }
     
@@ -479,7 +480,7 @@ public class Player implements Basic{
 
     @Override
     public void level() {
-        System.out.println("You are level " + getLevel());
+        console.putln("You are level " + getLevel());
     }
 
     @Override
@@ -525,15 +526,15 @@ public class Player implements Basic{
                     setShoes(temp);
                     break;
                 default:
-                    System.out.println("Error no match in assiging weapon. Pleaese contact admin.");
+                    console.putln("Error no match in assiging weapon. Pleaese contact admin.");
                     break;
             }
             //adds item to inventory
-           System.out.println("You remove a(n) " + item.getName()); 
+           console.putln("You remove a(n) " + item.getName()); 
            setInventory(addItem(item));
         }
         else{
-            System.out.println("Remove what?");
+            console.putln("Remove what?");
         }
     }
     
@@ -546,10 +547,10 @@ public class Player implements Basic{
             setInventory(removeItem(target, getInventory()));
             //adds the item to the room
             getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).addItem(item);
-            System.out.println("You successully drop a(n) " + item.getName());
+            console.putln("You successully drop a(n) " + item.getName());
         }
         else{
-            System.out.println("Drop what?");
+            console.putln("Drop what?");
         }
     }
     
@@ -562,11 +563,11 @@ public class Player implements Basic{
             //removes item from room if item is in the room
             getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).setItems(removeItem(target, getRoom(getxCoordinate(), getyCoordinate(), getzCoordinate()).getItems()));
             //adds item to inventory
-            System.out.println("You take a " + target);
+            console.putln("You take a " + target);
             setInventory(addItem(item));
         }
         else{
-            System.out.println("Take what?");
+            console.putln("Take what?");
         }
     }
     
@@ -577,13 +578,13 @@ public class Player implements Basic{
         if(item!=null){
             switch(item.getGroup()){
                 case "drink":
-                    System.out.println("You can't wear a drink");
+                    console.putln("You can't wear a drink");
                     break;
                 case "food":
-                    System.out.println("You can't wear food.");
+                    console.putln("You can't wear food.");
                     break;
                 case "artifact":
-                    System.out.println("You can't wear that.");
+                    console.putln("You can't wear that.");
                     break;
                 case "weapon":
                     //if there is already an item being worn in the slot first remove the item and then wear the desired equipment
@@ -591,35 +592,35 @@ public class Player implements Basic{
                        remove(getWeapon().getName());
                     }
                     setWeapon(item);
-                    System.out.println("You wear a " + item.getName());
+                    console.putln("You wear a " + item.getName());
                     break;
                 case "torso":
                     if(!getTorso().getName().equals("Nothing")){
                        remove(getTorso().getName());
                     }
                     setTorso(item);
-                    System.out.println("You wear a " + item.getName());
+                    console.putln("You wear a " + item.getName());
                     break;
                 case "head":
                     if(!getHead().getName().equals("Nothing")){
                        remove(getHead().getName());
                     }
                     setHead(item);
-                    System.out.println("You wear a " + item.getName());
+                    console.putln("You wear a " + item.getName());
                     break;
                 case "shoes":
                     if(!getShoes().getName().equals("Nothing")){
                        remove(getShoes().getName());
                     }
                     setShoes(item);
-                    System.out.println("You wear a " + item.getName());
+                    console.putln("You wear a " + item.getName());
                     break;
                 case "pants":
                     if(!getPants().getName().equals("Nothing")){
                        remove(getPants().getName());
                     }
                     setPants(item);
-                    System.out.println("You wear a " + item.getName());
+                    console.putln("You wear a " + item.getName());
                     break;
                 default:
                     break;
@@ -628,7 +629,7 @@ public class Player implements Basic{
             setInventory(removeItem(target, getInventory()));
         }
         else{
-            System.out.println("Wear what?");
+            console.putln("Wear what?");
         }
     }
 
@@ -810,7 +811,7 @@ public class Player implements Basic{
             } 
         }
         if(removed == 0){
-            System.out.println("You are not carrying a " + item);
+            console.putln("You are not carrying a " + item);
         }
         return inventory;
     }

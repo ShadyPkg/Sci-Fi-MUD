@@ -4,8 +4,6 @@
  */
 package scifimud;
 
-
-import Equipment.Item;
 import classes.BlackHandRogue;
 import classes.CyberSecurityArchitect;
 import classes.Cyborg;
@@ -28,7 +26,7 @@ import rooms.ThePit;
 import rooms.TrainStation;
 import rooms.Wastelands;
 import static scifimud.ClassCreator.className;
-
+import static scifimud.ConsoleApplet.console;
 
 /**
  *
@@ -37,8 +35,7 @@ import static scifimud.ClassCreator.className;
 //creates an instance to connect a player
 
 public class ConnectPlayer {
-    
-   
+     
     private static final int TOTAL_WORDS = 32;
     public static ArrayList<String> listOfWords = new ArrayList<>();
     
@@ -50,17 +47,13 @@ public class ConnectPlayer {
     static TrainStation[][][] trainMap = null;
     static Wastelands[][][] wastelandsMap = null;
     static Secret[][][] secretMap = null;
-    
-    
+       
     //initalizing classes
     static Cyborg cyborg = new Cyborg();
     static NanoMedic nanomedic = new NanoMedic();
     static CyberSecurityArchitect cybersecurityarchitect = new CyberSecurityArchitect();
     static TimeTraveler timetraveler = new TimeTraveler();
     static BlackHandRogue blackhandrogue = new BlackHandRogue();
-    
-    
-    
     
     public ConnectPlayer(){
         
@@ -79,7 +72,7 @@ public class ConnectPlayer {
         readDict();
         
         //loop to read in input of player
-        Scanner stdin = new Scanner(System.in);
+        //Scanner stdin = new Scanner(System.in);
         String command;
         String newCommand;
         //use to break a command if a certain target or thing needs to be parsed after a particular keyword
@@ -87,14 +80,14 @@ public class ConnectPlayer {
         
         while(true){  
                   
-           command = stdin.nextLine();
+           command = console.getln();
            //ensures log n lookup
            newCommand = binarySearch(command); 
 
             switch(newCommand){
                 
                 case "bitcoins":
-                    System.out.println("You are carrying " + className.getBitcoins() + " bitcoins.");
+                    console.putln("You are carrying " + className.getBitcoins() + " bitcoins.");
                     break;
                 case "down":
                     className.down();
@@ -104,7 +97,7 @@ public class ConnectPlayer {
                     
                 case "drop":
                     if(command.length() <= 4){
-                        System.out.println("Drop what?");
+                        console.putln("Drop what?");
                         break;
                     }
                     target = command.substring(5);
@@ -123,7 +116,7 @@ public class ConnectPlayer {
                     break;
                 case "examine":
                     if(command.length() <= 7){
-                        System.out.println("Examine what?");
+                        console.putln("Examine what?");
                         break;
                     }
                     target = command.substring(8);
@@ -141,7 +134,7 @@ public class ConnectPlayer {
                     break;
                 case "kill":
                     if(command.length()<=4){
-                        System.out.println("Kill whom?");
+                        console.putln("Kill whom?");
                         break;
                     }
                     target = command.substring(5);
@@ -149,7 +142,7 @@ public class ConnectPlayer {
                         fight(target);
                     }
                     else{
-                        System.out.println("Kill whom?");
+                        console.putln("Kill whom?");
                     }
                     
                     break;
@@ -158,7 +151,7 @@ public class ConnectPlayer {
                     break;
                     
                 case "location":
-                    System.out.println("You are at the " + className.getLocation());
+                    console.putln("You are at the " + className.getLocation());
                     break;
                     
                 case "look":
@@ -169,14 +162,14 @@ public class ConnectPlayer {
                    className.north();
                     break;
                 case "quit":
-                    savePlayer(className.getName(), className.getPassword(), className.getClassName(), className.getLevel(), className.getExperience(), className.getLocation(), className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate(), className.getBitcoins(), className.getStatus(), className.getInventory(), className.getWeapon(), className.getTorso(), className.getPants(), className.getHead(), className.getShoes());
-                    System.out.println("Goodbye!");
+                    savePlayer();
+                    console.putln("Goodbye!");
                     System.exit(0);    
                     break;
                 
                 case "remove":
                     if(command.length() <= 7){
-                        System.out.println("Remove what?");
+                        console.putln("Remove what?");
                         break;
                     }
                     target = command.substring(7);
@@ -184,16 +177,16 @@ public class ConnectPlayer {
                     break;
                     
                 case "save":
-                    savePlayer(className.getName(), className.getPassword(), className.getClassName(), className.getLevel(), className.getExperience(), className.getLocation(), className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate(), className.getBitcoins(), className.getStatus(), className.getInventory(), className.getWeapon(), className.getTorso(), className.getPants(), className.getHead(), className.getShoes());
+                    savePlayer();
                     break;
                     
                 case "say":
                     if(command.length()<=3){
-                        System.out.println("Say to whom?");
+                        console.putln("Say to whom?");
                         break;
                     }
                     target = command.substring(4);
-                    System.out.println("You say " + target);
+                    console.putln("You say " + target);
                     break;
                     
                 case "self":
@@ -207,14 +200,14 @@ public class ConnectPlayer {
                     break;
                     
                 case "status":
-                    System.out.println("Your health is " + className.getHealth());
-                    System.out.println("Your energy is " + className.getEnergy());
-                    System.out.println("You are " + className.getStatus());
+                    console.putln("Your health is " + className.getHealth());
+                    console.putln("Your energy is " + className.getEnergy());
+                    console.putln("You are " + className.getStatus());
                     break;
                     
                 case "take":
                     if(command.length() <= 4){
-                        System.out.println("Take what?");
+                        console.putln("Take what?");
                         break;
                     }
                     target = command.substring(5);
@@ -223,7 +216,7 @@ public class ConnectPlayer {
                     
                 case "tell":
                     if(command.length() <= 4){
-                        System.out.println("Tell whom?");
+                        console.putln("Tell whom?");
                         break;
                     }
                     target = command.substring(5);
@@ -235,7 +228,7 @@ public class ConnectPlayer {
                 
                 case "wear":
                     if(command.length() <= 4){
-                        System.out.println("Wear what?");
+                        console.putln("Wear what?");
                         break;
                     }
                     target = command.substring(5);
@@ -249,23 +242,23 @@ public class ConnectPlayer {
                     
                 case "yell":
                     if(command.length()<=4){
-                        System.out.println("Yell what?");
+                        console.putln("Yell what?");
                         break;
                     }
                     target = command.substring(5);
-                    System.out.println("You yell " + target);
+                    console.putln("You yell " + target);
                     break;
                 case "health":
-                    System.out.println("Health : " + className.getHealth());
+                    console.putln("Health : " + className.getHealth());
                     break;
                 case "energy":
-                    System.out.println("Energy : " + className.getHealth());
+                    console.putln("Energy : " + className.getHealth());
                     break;
                 case "statistics":
                     break;
                 default:
                     //incorrect string was typed "null"
-                    System.out.println("I do not understand.");
+                    console.putln("I do not understand.");
                     break;
                     
             }
@@ -338,50 +331,52 @@ public class ConnectPlayer {
     
   
     //saves player data to a file
-    public static void savePlayer  (String name, String password, String className, int level, int experience, String location, int xCoordinate, int yCoordinate, int zCoordinate, int bitcoins, String status, ArrayList<Item> inventory, Item weapon, Item torso, Item pants, Item head, Item shoes) throws FileNotFoundException, UnsupportedEncodingException{
+    public static void savePlayer  () throws FileNotFoundException, UnsupportedEncodingException{
      
-         try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + name + ".txt", "UTF-8")) {
+         try (PrintWriter writer = new PrintWriter("src/PlayerInformation/" + className.getName() + ".txt", "UTF-8")) {
             //name
-            writer.println(name);
+            writer.println(className.getName());
             
-            writer.println(password);
+            writer.println(className.getPassword());
             //class 
-            writer.println(className);
+            writer.println(className.getClassName());
             //level of player
-            writer.printf("%d\n", level);
+            writer.printf("%d\n", className.getLevel());
             //experience of player
-            writer.printf("%d\n", experience);
+            writer.printf("%d\n", className.getExperience());
             //map location of player
-            writer.printf("%s\n", location);
+            writer.printf("%s\n", className.getLocation());
             //map coordinates where player is located
-            writer.printf("%d %d %d\n", xCoordinate, yCoordinate, zCoordinate);
+            writer.printf("%d %d %d\n", className.getxCoordinate(), className.getyCoordinate(), className.getzCoordinate());
             //amount of bitcoins player is carrying
-            writer.printf("%d\n", 0);
+            writer.printf("%d\n", className.getBitcoins());
             //players health status, ex: healthy, blind, sick, etc. 
             //multiple affliction status will be separated by commas
-            writer.println(status);
+            writer.println(className.getStatus());
             //players inventory, all items are separated by a comma and will
             //use a strtok to break up the items
-            writer.println(ObjectCreator.getInventory(inventory));
+            writer.println(ObjectCreator.getInventory(className.getInventory()));
             
             //players weapon equipment
-            writer.println(weapon.getName());
+            writer.println(className.getWeapon().getName());
             //players head equipment
-            writer.println(head.getName());
+            writer.println(className.getHead().getName());
             //players torso equipment
-            writer.println(torso.getName());
+            writer.println(className.getTorso().getName());
             //players pants equipments
-            writer.println(pants.getName());
+            writer.println(className.getPants().getName());
             //players shoe equipment
-            writer.println(shoes.getName());
-            System.out.println("Successfully saved player data");
+            writer.println(className.getShoes().getName());
+            console.putln("Successfully saved player data");
             writer.close();
         }
     }
     
+   
+    
     //when a player inititates a fight with a monster
     public static void fight(String target){
-        System.out.println("You engage a " + target + "!");
+        console.putln("You engage a " + target + "!");
         
     }
     
@@ -396,18 +391,18 @@ public class ConnectPlayer {
     //player chooses to do so. This will give a greater boost to health regen.
     public static void sleep() {
         
-        System.out.println("You lay down and sleep.");
-        Scanner scanner = new Scanner(System.in);
+        console.putln("You lay down and sleep.");
+        //Scanner scanner = new Scanner(System.in);
         String response;
         while(true){
-            response = scanner.nextLine();
+            response = console.getln();
             
             if("wake".equals(response)){
-                System.out.println("You woke up.");
+                console.putln("You woke up.");
                 break;
             }
             else{
-                System.out.println("You can't do anything while you are asleep");
+                console.putln("You can't do anything while you are asleep");
             }
         }
     }

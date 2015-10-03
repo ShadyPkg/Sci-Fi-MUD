@@ -5,9 +5,6 @@
 package scifimud;
 
 import PlayerInformation.EncryptString;
-import java.applet.Applet;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +14,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
-import static scifimud.Console.jTextArea1;
-import static scifimud.Console.jTextArea2;
+import static scifimud.ConsoleApplet.console;
 
 
 /**
@@ -30,40 +24,25 @@ import static scifimud.Console.jTextArea2;
  * @author jonc
  */
 public class SciFiMUD{
-
+   
     /**
-     * @param args the command line arguments
      * @throws java.net.URISyntaxException
      * @throws java.io.FileNotFoundException
+     * @throws java.io.UnsupportedEncodingException
+     * @throws java.security.GeneralSecurityException
      */
-    public static void main(String[] args) throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException, IOException  {
+    public static void main() throws URISyntaxException, FileNotFoundException, UnsupportedEncodingException, GeneralSecurityException, IOException  {
         
-      //   JFrame frame = new JFrame();
-     //   frame.setSize(1100, 800);
-
-       // final Applet applet = new Console();
-
-    //    frame.getContentPane().add(applet);
-     //   frame.addWindowListener(new WindowAdapter() {
-    //       public void windowClosing(WindowEvent we) {
-     //           applet.stop();
-     //           applet.destroy();
-     //           System.exit(0);
-     //       }
-    //    });
-//
-    //    frame.setVisible(true);
-    //    applet.init();
-     //   applet.start();
-        
+       
+    
         // Need to add splash screen login
-        System.out.println("Welcome to Digital Wastelands.");
+        console.putln("Welcome to Digital Wastelands.");
         //reads in name and pass into a text file
         String name;
-        Scanner stdin = new Scanner(System.in);     
+        //Scanner stdin = new Scanner(System.in);     
         while(true){
-            System.out.println("What is your name?");
-            name = stdin.next();
+            console.putln("What is your name?");
+            name = console.getln();
             //makes sure name has no spaces, numbers, or special charcters and
             //length of name is between 3 to 12 charaters. 
             Pattern pattern = Pattern.compile("[A-Za-z]{3,12}");
@@ -72,7 +51,7 @@ public class SciFiMUD{
                 break;
             }
             else{
-                jTextArea1.setText(jTextArea1.getText() + "\n" + "No spaces, numbers, special characters and name must be between length of 3 to 12 characters.");
+                console.putln("No spaces, numbers, special characters and name must be between length of 3 to 12 characters.");
             }
         }
         //checks to see if the name exists
@@ -80,49 +59,49 @@ public class SciFiMUD{
            
             
             String password;
-            System.out.println("What is your password?");
-            password = stdin.nextLine();
+            console.putln("What is your password?");
+            password = console.getln();
             if(checkPassword(name, password) == 1){
-                System.out.println("Welcome " + name);
+                console.putln("Welcome " + name);
                 ConnectPlayer player = new ConnectPlayer();
                 //connecting player
                 player.connect(name);
             }
             else{
                 //if failed then user is disconnected to prevent bruteforce hack attemps
-                System.out.println("Name or password is incorrect.");
+                console.putln("Name or password is incorrect.");
                 System.exit(0);
             }
         }
         else{
-            System.out.println("That is a good name.");
+            console.putln("That is a good name.");
             //makes user enter password twice to confirm password is correct
-            System.out.println("Please enter a password.");
+            console.putln("Please enter a password.");
             String password;
             
             while(true){
 
-                password = stdin.nextLine();
+                password = console.getln();
                 String confirmPassword;
-                System.out.println("Please enter your password to confirm again.");
-                confirmPassword = stdin.nextLine();
+                console.putln("Please enter your password to confirm again.");
+                confirmPassword = console.getln();
                 if(password.equals(confirmPassword)){
                     System.out.printf("Success your passwords matched.");
                     break;
                 }
                 else{
-                    System.out.println("Password did not match. Please enter it again.");
+                    console.putln("Password did not match. Please enter it again.");
                 }
             } 
-            System.out.println("Please pick your class.");
-            System.out.println("The classes are Cyborg, Nanomedic, Cyber Security Architect, , Time Traveler, and BlackHandRogue");
-            System.out.println("Type the abbreviations for the class which are cyborg, nano, cyber, time, black.");
+            console.putln("Please pick your class.");
+            console.putln("The classes are Cyborg, Nanomedic, Cyber Security Architect, , Time Traveler, and BlackHandRogue");
+            console.putln("Type the abbreviations for the class which are cyborg, nano, cyber, time, black.");
             String classChosen = "dummy";
             //makes sure the player picks a valid class using the abbreviations
             //note only Java version 7 or higher has strings for switch cases. Update Java version if its not working
             int correct = 0;
             while(correct==0){
-                classChosen = stdin.nextLine();
+                classChosen = console.getln();
                 switch(classChosen){
                     case "cyborg":
                         classChosen = "Cyborg";
@@ -145,14 +124,14 @@ public class SciFiMUD{
                         correct = 1;
                         break;
                     default:
-                        System.out.println("Please type in the abbreviation correctly for the class you want");
+                        console.putln("Please type in the abbreviation correctly for the class you want");
                         break;
                 }
             }
-            System.out.println("Saving data please wait...");
+            console.putln("Saving data please wait...");
             //saving player data to a file
             saveNewPlayer(name, password, classChosen);
-            System.out.println("Successfully saved!");
+            console.putln("Successfully saved!");
             
             ConnectPlayer player = new ConnectPlayer();
             //connecting player

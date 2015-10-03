@@ -13,10 +13,10 @@ import Equipment.Weapons;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import static java.lang.System.console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static scifimud.ClassCreator.className;
+import static scifimud.ConsoleApplet.console;
 
 
 /**
@@ -144,7 +144,7 @@ public class ObjectCreator {
                         className.setWeapon(createWeapon(arrayList.get(mid)));
                         break;
                     default:
-                        System.out.println("Error invalid equipment. Please contact admin.");
+                        console.putln("Error invalid equipment. Please contact admin.");
                         break;
                 }
                 
@@ -226,7 +226,7 @@ public class ObjectCreator {
                         playerInventory.add(createWeapon(arrayList.get(mid)));
                         break;
                     default:
-                        System.out.println("Error invalid equipment category. Please contact admin.");
+                        console.putln("Error invalid equipment category. Please contact admin.");
                         break;
                 }
                 

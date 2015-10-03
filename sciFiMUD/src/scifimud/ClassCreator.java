@@ -6,7 +6,6 @@ import classes.Player;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static java.lang.System.console;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static scifimud.ConnectPlayer.blackhandrogue;
@@ -14,6 +13,7 @@ import static scifimud.ConnectPlayer.cybersecurityarchitect;
 import static scifimud.ConnectPlayer.cyborg;
 import static scifimud.ConnectPlayer.nanomedic;
 import static scifimud.ConnectPlayer.timetraveler;
+import static scifimud.ConsoleApplet.console;
 
 /**
  *
@@ -239,7 +239,7 @@ public class ClassCreator{
                 break;
             //in case the file did not read the class properly it will terminate application
             default:
-                System.out.println("Error invalid class or did not read data properly. Contact admin.");
+                console.putln("Error invalid class or did not read data properly. Contact admin.");
                 System.exit(0);
                 
         }
